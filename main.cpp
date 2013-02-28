@@ -6,7 +6,7 @@
  */
 
 #include "NetworkTestUtility.h"
-#include "NetworkTestUtility_wxGUI.h"
+#include "NetworkTestUtilityDlg.h"
 
 #ifdef __WXMAC__
 #include <ApplicationServices/ApplicationServices.h>
@@ -29,7 +29,7 @@ CNetworkTestUtility::~CNetworkTestUtility()
 
 bool CNetworkTestUtility::OnInit()
 {
-     CNetworkTestUtilitiyDlg* pFrame = new CNetworkTestUtilitiyDlg( (wxWindow*) NULL );
+     CNetworkTestUtilityDlg* pFrame = new CNetworkTestUtilityDlg( (wxWindow*) NULL );
       
      pFrame->Show();
      SetTopWindow( pFrame );

@@ -17,7 +17,6 @@ class CNetworkTabDialog;
 #include <wx/font.h>
 #include <wx/colour.h>
 #include <wx/settings.h>
-#include <wx/gbsizer.h>
 #include <wx/sizer.h>
 #include <wx/dialog.h>
 #include <wx/listbox.h>
@@ -26,32 +25,37 @@ class CNetworkTabDialog;
 #include <wx/textctrl.h>
 #include <wx/checkbox.h>
 #include <wx/valtext.h>
+#include <wx/gbsizer.h>
 #include <wx/panel.h>
 
 ///////////////////////////////////////////////////////////////////////////
 
 
 ///////////////////////////////////////////////////////////////////////////////
-/// Class CNetworkTestUtilitiyDlg
+/// Class CNetworkTestUtilityDlg_wxGUI
 ///////////////////////////////////////////////////////////////////////////////
-class CNetworkTestUtilitiyDlg : public wxDialog 
+class CNetworkTestUtilityDlg_wxGUI : public wxDialog 
 {
 	private:
 	
 	protected:
 		wxButton* m_buttonExit;
+		
+		// Virtual event handlers, overide them in your derived class
+		virtual void OnButtonClick_Exit( wxCommandEvent& event ) { event.Skip(); }
+		
 	
 	public:
 		
-		CNetworkTestUtilitiyDlg( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 117,80 ), long style = wxDEFAULT_DIALOG_STYLE );
-		~CNetworkTestUtilitiyDlg();
+		CNetworkTestUtilityDlg_wxGUI( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 370,349 ), long style = wxDEFAULT_DIALOG_STYLE );
+		~CNetworkTestUtilityDlg_wxGUI();
 	
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-/// Class CNetworkDlgMulticastTab
+/// Class CNetworkDlgMulticastTab_wxGUI
 ///////////////////////////////////////////////////////////////////////////////
-class CNetworkDlgMulticastTab : public CNetworkTabDialog
+class CNetworkDlgMulticastTab_wxGUI : public CNetworkTabDialog
 {
 	private:
 	
@@ -87,15 +91,15 @@ class CNetworkDlgMulticastTab : public CNetworkTabDialog
 	
 	public:
 		
-		CNetworkDlgMulticastTab( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 694,513 ), long style = wxTAB_TRAVERSAL );
-		~CNetworkDlgMulticastTab();
+		CNetworkDlgMulticastTab_wxGUI( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 694,513 ), long style = wxTAB_TRAVERSAL );
+		~CNetworkDlgMulticastTab_wxGUI();
 	
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-/// Class CNetworkDlgUDPTab
+/// Class CNetworkDlgUDPTab_wxGUI
 ///////////////////////////////////////////////////////////////////////////////
-class CNetworkDlgUDPTab : public CNetworkTabDialog
+class CNetworkDlgUDPTab_wxGUI : public CNetworkTabDialog
 {
 	private:
 	
@@ -127,15 +131,15 @@ class CNetworkDlgUDPTab : public CNetworkTabDialog
 	
 	public:
 		
-		CNetworkDlgUDPTab( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 694,467 ), long style = wxTAB_TRAVERSAL );
-		~CNetworkDlgUDPTab();
+		CNetworkDlgUDPTab_wxGUI( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 694,467 ), long style = wxTAB_TRAVERSAL );
+		~CNetworkDlgUDPTab_wxGUI();
 	
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-/// Class CNetworkDlgTCPClientTab
+/// Class CNetworkDlgTCPClientTab_wxGUI
 ///////////////////////////////////////////////////////////////////////////////
-class CNetworkDlgTCPClientTab : public CNetworkTabDialog
+class CNetworkDlgTCPClientTab_wxGUI : public CNetworkTabDialog
 {
 	private:
 	
@@ -165,8 +169,8 @@ class CNetworkDlgTCPClientTab : public CNetworkTabDialog
 	
 	public:
 		
-		CNetworkDlgTCPClientTab( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 694,467 ), long style = wxTAB_TRAVERSAL );
-		~CNetworkDlgTCPClientTab();
+		CNetworkDlgTCPClientTab_wxGUI( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 694,467 ), long style = wxTAB_TRAVERSAL );
+		~CNetworkDlgTCPClientTab_wxGUI();
 	
 };
 

@@ -27,11 +27,11 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 PROJECTNAME=NetworkTestUtility_wx
 
 # Active Configuration
-DEFAULTCONF=Debug
+DEFAULTCONF=Debug_Windows
 CONF=${DEFAULTCONF}
 
 # All Configurations
-ALLCONFS=Debug Release 
+ALLCONFS=Debug_Windows Release 
 
 
 # build

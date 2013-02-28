@@ -9,10 +9,32 @@
         <itemPath>main.cpp</itemPath>
       </logicalFolder>
     </logicalFolder>
+    <logicalFolder name="f2" displayName="GUI" projectFiles="true" kind="ROOT">
+      <logicalFolder name="f1"
+                     displayName="Header Files"
+                     projectFiles="true"
+                     kind="ROOT">
+        <itemPath>NetworkDlgMulticastTab.h</itemPath>
+        <itemPath>NetworkDlgTCPClientTab.h</itemPath>
+        <itemPath>NetworkDlgUDPTab.h</itemPath>
+        <itemPath>NetworkTabDialog.h</itemPath>
+        <itemPath>NetworkTestUtilityDlg.h</itemPath>
+        <itemPath>NetworkTestUtility_wxGUI.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f2"
+                     displayName="Source Files"
+                     projectFiles="true"
+                     kind="ROOT">
+        <itemPath>NetworkDlgMulticastTab.cpp</itemPath>
+        <itemPath>NetworkDlgTCPClientTab.cpp</itemPath>
+        <itemPath>NetworkDlgUDPTab.cpp</itemPath>
+        <itemPath>NetworkTestUtilityDlg.cpp</itemPath>
+        <itemPath>NetworkTestUtility_wxGUI.cpp</itemPath>
+      </logicalFolder>
+    </logicalFolder>
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>NetworkTabDialog.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -33,12 +55,10 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
-    <itemPath>NetworkTestUtility_wxGUI.cpp</itemPath>
-    <itemPath>NetworkTestUtility_wxGUI.h</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
-    <conf name="Debug" type="1">
+    <conf name="Debug_Windows" type="1">
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>default</compilerSet>
@@ -65,9 +85,25 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="NetworkDlgMulticastTab.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="NetworkDlgMulticastTab.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="NetworkDlgTCPClientTab.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="NetworkDlgTCPClientTab.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="NetworkDlgUDPTab.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="NetworkDlgUDPTab.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="NetworkTabDialog.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="NetworkTestUtility.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="NetworkTestUtilityDlg.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="NetworkTestUtilityDlg.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="NetworkTestUtility_wxGUI.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -95,9 +131,25 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="NetworkDlgMulticastTab.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="NetworkDlgMulticastTab.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="NetworkDlgTCPClientTab.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="NetworkDlgTCPClientTab.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="NetworkDlgUDPTab.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="NetworkDlgUDPTab.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="NetworkTabDialog.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="NetworkTestUtility.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="NetworkTestUtilityDlg.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="NetworkTestUtilityDlg.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="NetworkTestUtility_wxGUI.cpp" ex="false" tool="1" flavor2="0">
       </item>

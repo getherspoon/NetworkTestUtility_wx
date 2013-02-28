@@ -23,7 +23,7 @@ AS=as
 # Macros
 CND_PLATFORM=MinGW_Latest-Windows
 CND_DLIB_EXT=dll
-CND_CONF=Debug
+CND_CONF=Debug_Windows
 CND_DISTDIR=dist
 CND_BUILDDIR=build
 
@@ -35,6 +35,10 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/NetworkDlgMulticastTab.o \
+	${OBJECTDIR}/NetworkDlgTCPClientTab.o \
+	${OBJECTDIR}/NetworkDlgUDPTab.o \
+	${OBJECTDIR}/NetworkTestUtilityDlg.o \
 	${OBJECTDIR}/NetworkTestUtility_wxGUI.o \
 	${OBJECTDIR}/main.o
 
@@ -62,6 +66,26 @@ LDLIBSOPTIONS=-L../../Third_Party/Libraries/wxWidgets/wxWidgets-2.8.12/build-sta
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/networktestutility_wx.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/networktestutility_wx ${OBJECTFILES} ${LDLIBSOPTIONS}
+
+${OBJECTDIR}/NetworkDlgMulticastTab.o: NetworkDlgMulticastTab.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -D__WXDEBUG__ -D__WXMSW__ -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.8.12/build-static-debug-gcc4.7.2/lib/wx/include/msw-ansi-debug-static-2.8 -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.8.12/include -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.8.12/contrib/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkDlgMulticastTab.o NetworkDlgMulticastTab.cpp
+
+${OBJECTDIR}/NetworkDlgTCPClientTab.o: NetworkDlgTCPClientTab.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -D__WXDEBUG__ -D__WXMSW__ -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.8.12/build-static-debug-gcc4.7.2/lib/wx/include/msw-ansi-debug-static-2.8 -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.8.12/include -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.8.12/contrib/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkDlgTCPClientTab.o NetworkDlgTCPClientTab.cpp
+
+${OBJECTDIR}/NetworkDlgUDPTab.o: NetworkDlgUDPTab.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -D__WXDEBUG__ -D__WXMSW__ -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.8.12/build-static-debug-gcc4.7.2/lib/wx/include/msw-ansi-debug-static-2.8 -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.8.12/include -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.8.12/contrib/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkDlgUDPTab.o NetworkDlgUDPTab.cpp
+
+${OBJECTDIR}/NetworkTestUtilityDlg.o: NetworkTestUtilityDlg.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -D__WXDEBUG__ -D__WXMSW__ -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.8.12/build-static-debug-gcc4.7.2/lib/wx/include/msw-ansi-debug-static-2.8 -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.8.12/include -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.8.12/contrib/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkTestUtilityDlg.o NetworkTestUtilityDlg.cpp
 
 ${OBJECTDIR}/NetworkTestUtility_wxGUI.o: NetworkTestUtility_wxGUI.cpp 
 	${MKDIR} -p ${OBJECTDIR}

@@ -30,6 +30,8 @@ class CNetworkTabDialog : public wxPanel
                                 const wxString& name = wxPanelNameStr )
                 : wxPanel( parent, winid, pos, size, style, name ) {}
         virtual ~CNetworkTabDialog() {}
+        
+        virtual wxString	GetTabTitle() = 0;
 };
 #endif	/* NETWORKTABDIALOG_H */
 

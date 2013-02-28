@@ -9,34 +9,33 @@
 
 ///////////////////////////////////////////////////////////////////////////
 
-CNetworkTestUtilitiyDlg::CNetworkTestUtilitiyDlg( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
+CNetworkTestUtilityDlg_wxGUI::CNetworkTestUtilityDlg_wxGUI( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
 {
 	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
 	
 	wxBoxSizer* bSizer1;
 	bSizer1 = new wxBoxSizer( wxVERTICAL );
 	
-	wxGridBagSizer* gbSizer1;
-	gbSizer1 = new wxGridBagSizer( 0, 0 );
-	gbSizer1->SetFlexibleDirection( wxBOTH );
-	gbSizer1->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
-	
 	m_buttonExit = new wxButton( this, wxID_ANY, wxT("Exit"), wxDefaultPosition, wxDefaultSize, 0 );
-	gbSizer1->Add( m_buttonExit, wxGBPosition( 1, 2 ), wxGBSpan( 1, 1 ), wxALL, 5 );
-	
-	bSizer1->Add( gbSizer1, 1, wxEXPAND, 5 );
+	bSizer1->Add( m_buttonExit, 0, wxALIGN_RIGHT|wxALL, 5 );
 	
 	this->SetSizer( bSizer1 );
 	this->Layout();
 	
 	this->Centre( wxBOTH );
+	
+	// Connect Events
+	m_buttonExit->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CNetworkTestUtilityDlg_wxGUI::OnButtonClick_Exit ), NULL, this );
 }
 
-CNetworkTestUtilitiyDlg::~CNetworkTestUtilitiyDlg()
+CNetworkTestUtilityDlg_wxGUI::~CNetworkTestUtilityDlg_wxGUI()
 {
+	// Disconnect Events
+	m_buttonExit->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CNetworkTestUtilityDlg_wxGUI::OnButtonClick_Exit ), NULL, this );
+	
 }
 
-CNetworkDlgMulticastTab::CNetworkDlgMulticastTab( wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : CNetworkTabDialog( parent, id, pos, size, style )
+CNetworkDlgMulticastTab_wxGUI::CNetworkDlgMulticastTab_wxGUI( wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : CNetworkTabDialog( parent, id, pos, size, style )
 {
 	wxBoxSizer* bSizer2;
 	bSizer2 = new wxBoxSizer( wxVERTICAL );
@@ -144,11 +143,11 @@ CNetworkDlgMulticastTab::CNetworkDlgMulticastTab( wxWindow* parent, wxWindowID i
 	this->Layout();
 }
 
-CNetworkDlgMulticastTab::~CNetworkDlgMulticastTab()
+CNetworkDlgMulticastTab_wxGUI::~CNetworkDlgMulticastTab_wxGUI()
 {
 }
 
-CNetworkDlgUDPTab::CNetworkDlgUDPTab( wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : CNetworkTabDialog( parent, id, pos, size, style )
+CNetworkDlgUDPTab_wxGUI::CNetworkDlgUDPTab_wxGUI( wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : CNetworkTabDialog( parent, id, pos, size, style )
 {
 	wxBoxSizer* bSizer2;
 	bSizer2 = new wxBoxSizer( wxVERTICAL );
@@ -243,11 +242,11 @@ CNetworkDlgUDPTab::CNetworkDlgUDPTab( wxWindow* parent, wxWindowID id, const wxP
 	this->Layout();
 }
 
-CNetworkDlgUDPTab::~CNetworkDlgUDPTab()
+CNetworkDlgUDPTab_wxGUI::~CNetworkDlgUDPTab_wxGUI()
 {
 }
 
-CNetworkDlgTCPClientTab::CNetworkDlgTCPClientTab( wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : CNetworkTabDialog( parent, id, pos, size, style )
+CNetworkDlgTCPClientTab_wxGUI::CNetworkDlgTCPClientTab_wxGUI( wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : CNetworkTabDialog( parent, id, pos, size, style )
 {
 	wxBoxSizer* bSizer2;
 	bSizer2 = new wxBoxSizer( wxVERTICAL );
@@ -335,6 +334,6 @@ CNetworkDlgTCPClientTab::CNetworkDlgTCPClientTab( wxWindow* parent, wxWindowID i
 	this->Layout();
 }
 
-CNetworkDlgTCPClientTab::~CNetworkDlgTCPClientTab()
+CNetworkDlgTCPClientTab_wxGUI::~CNetworkDlgTCPClientTab_wxGUI()
 {
 }
