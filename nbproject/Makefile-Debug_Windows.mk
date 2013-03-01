@@ -21,8 +21,8 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=MinGW_Latest-Windows
-CND_DLIB_EXT=dll
+CND_PLATFORM=GNU-MacOSX
+CND_DLIB_EXT=dylib
 CND_CONF=Debug_Windows
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -57,13 +57,13 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L../../Third_Party/Libraries/wxWidgets/wxWidgets-2.8.12/build-static-debug-gcc4.7.2/lib -static -mthreads -Wl,--subsystem,windows -mwindows ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.8.12/build-static-debug-gcc4.7.2/lib/libwx_mswd_richtext-2.8.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.8.12/build-static-debug-gcc4.7.2/lib/libwx_mswd_aui-2.8.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.8.12/build-static-debug-gcc4.7.2/lib/libwx_mswd_xrc-2.8.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.8.12/build-static-debug-gcc4.7.2/lib/libwx_mswd_qa-2.8.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.8.12/build-static-debug-gcc4.7.2/lib/libwx_mswd_html-2.8.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.8.12/build-static-debug-gcc4.7.2/lib/libwx_mswd_adv-2.8.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.8.12/build-static-debug-gcc4.7.2/lib/libwx_mswd_core-2.8.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.8.12/build-static-debug-gcc4.7.2/lib/libwx_based_xml-2.8.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.8.12/build-static-debug-gcc4.7.2/lib/libwx_based_net-2.8.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.8.12/build-static-debug-gcc4.7.2/lib/libwx_based-2.8.a -lwxregexd-2.8 -lwxexpatd-2.8 -lwxtiffd-2.8 -lwxjpegd-2.8 -lwxpngd-2.8 -lwxzlibd-2.8 -lrpcrt4 -loleaut32 -lole32 -luuid -lwinspool -lwinmm -lshell32 -lcomctl32 -lcomdlg32 -lctl3d32 -ladvapi32 -lwsock32 -lgdi32
+LDLIBSOPTIONS=-L../../Third_Party/Libraries/wxWidgets/wxWidgets-2.8.12/build-static-debug-gcc4.7.2/lib -static
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/networktestutility_wx.exe
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/networktestutility_wx
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/networktestutility_wx.exe: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/networktestutility_wx: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/networktestutility_wx ${OBJECTFILES} ${LDLIBSOPTIONS}
 
@@ -103,7 +103,7 @@ ${OBJECTDIR}/main.o: main.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/networktestutility_wx.exe
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/networktestutility_wx
 
 # Subprojects
 .clean-subprojects:

@@ -31,7 +31,7 @@ DEFAULTCONF=Debug_Windows
 CONF=${DEFAULTCONF}
 
 # All Configurations
-ALLCONFS=Debug_Windows Release 
+ALLCONFS=Debug_Windows Debug_OSX Release 
 
 
 # build
