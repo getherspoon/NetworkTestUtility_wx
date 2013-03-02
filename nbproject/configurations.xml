@@ -74,8 +74,7 @@
             <pElem>../../Third_Party/Libraries/wxWidgets/wxWidgets-2.8.12/build-static-debug-gcc4.7.2/lib</pElem>
           </linkerAddLib>
           <linkerLibItems>
-            <linkerOptionItem>-static</linkerOptionItem>
-            <linkerOptionItem></linkerOptionItem>
+            <linkerOptionItem>-mthreads -Wl,--subsystem,windows -mwindows ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.8.12/build-static-debug-gcc4.7.2/lib/libwx_mswd_richtext-2.8.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.8.12/build-static-debug-gcc4.7.2/lib/libwx_mswd_aui-2.8.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.8.12/build-static-debug-gcc4.7.2/lib/libwx_mswd_xrc-2.8.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.8.12/build-static-debug-gcc4.7.2/lib/libwx_mswd_qa-2.8.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.8.12/build-static-debug-gcc4.7.2/lib/libwx_mswd_html-2.8.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.8.12/build-static-debug-gcc4.7.2/lib/libwx_mswd_adv-2.8.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.8.12/build-static-debug-gcc4.7.2/lib/libwx_mswd_core-2.8.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.8.12/build-static-debug-gcc4.7.2/lib/libwx_based_xml-2.8.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.8.12/build-static-debug-gcc4.7.2/lib/libwx_based_net-2.8.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.8.12/build-static-debug-gcc4.7.2/lib/libwx_based-2.8.a -lwxregexd-2.8 -lwxexpatd-2.8 -lwxtiffd-2.8 -lwxjpegd-2.8 -lwxpngd-2.8 -lwxzlibd-2.8 -lrpcrt4 -loleaut32 -lole32 -luuid -lwinspool -lwinmm -lshell32 -lcomctl32 -lcomdlg32 -lctl3d32 -ladvapi32 -lwsock32 -lgdi32</linkerOptionItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
