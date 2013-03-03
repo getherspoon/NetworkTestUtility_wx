@@ -129,8 +129,16 @@
           <incDir>
             <pElem>../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/include</pElem>
             <pElem>../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/wx/include/osx_cocoa-ansi-static-2.9</pElem>
+            <pElem>../../SENTEL/Libraries/EthernetComms/include</pElem>
+            <pElem>../../SENTEL/Libraries/EthernetComms/include/BoostAsioConnections</pElem>
+            <pElem>../../Third_Party/Libraries/Boost/include/boost_1_53_0</pElem>
           </incDir>
           <preprocessorList>
+            <Elem>BOOST_DISABLE_ASSERTS</Elem>
+            <Elem>BOOST_ENABLE_ASSERT_HANDLER</Elem>
+            <Elem>BOOST_THREAD_USE_LIB</Elem>
+            <Elem>NO_MFC</Elem>
+            <Elem>_DEBUG</Elem>
             <Elem>_FILE_OFFSET_BITS=64</Elem>
             <Elem>__WXDEBUG__</Elem>
             <Elem>__WXMAC__</Elem>
@@ -141,8 +149,24 @@
         <linkerTool>
           <linkerAddLib>
             <pElem>../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib</pElem>
+            <pElem>../../SENTEL/Libraries/EthernetComms/lib</pElem>
+            <pElem>../../Third_Party/Libraries/Boost/lib/boost_1_53_0</pElem>
           </linkerAddLib>
           <linkerLibItems>
+            <linkerLibLibItem>boost_system</linkerLibLibItem>
+            <linkerLibLibItem>boost_thread</linkerLibLibItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../SENTEL_EthernetCommsLibrary"
+                            CT="3"
+                            CN="Debug_GCC_Static"
+                            AC="false"
+                            BL="true"
+                            WD="../SENTEL_EthernetCommsLibrary"
+                            BC="${MAKE}  -f Makefile CONF=Debug_GCC_Static"
+                            CC="${MAKE}  -f Makefile CONF=Debug_GCC_Static clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libEthernetComms.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
             <linkerOptionItem>-framework IOKit -framework Carbon -framework Cocoa -framework AudioToolbox -framework System -framework OpenGL ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/libwx_osx_cocoa_xrc-2.9.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/libwx_osx_cocoa_webview-2.9.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/libwx_osx_cocoa_qa-2.9.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/libwx_base_net-2.9.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/libwx_osx_cocoa_html-2.9.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/libwx_osx_cocoa_adv-2.9.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/libwx_osx_cocoa_core-2.9.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/libwx_base_xml-2.9.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/libwx_base-2.9.a -framework WebKit -lexpat -lwxtiff-2.9 -lwxjpeg-2.9 -lwxpng-2.9 -lz -lpthread -liconv</linkerOptionItem>
           </linkerLibItems>
         </linkerTool>

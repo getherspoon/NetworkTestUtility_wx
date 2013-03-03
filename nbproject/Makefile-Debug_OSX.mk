@@ -57,11 +57,13 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib -framework IOKit -framework Carbon -framework Cocoa -framework AudioToolbox -framework System -framework OpenGL ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/libwx_osx_cocoa_xrc-2.9.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/libwx_osx_cocoa_webview-2.9.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/libwx_osx_cocoa_qa-2.9.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/libwx_base_net-2.9.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/libwx_osx_cocoa_html-2.9.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/libwx_osx_cocoa_adv-2.9.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/libwx_osx_cocoa_core-2.9.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/libwx_base_xml-2.9.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/libwx_base-2.9.a -framework WebKit -lexpat -lwxtiff-2.9 -lwxjpeg-2.9 -lwxpng-2.9 -lz -lpthread -liconv
+LDLIBSOPTIONS=-L../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib -L../../SENTEL/Libraries/EthernetComms/lib -L../../Third_Party/Libraries/Boost/lib/boost_1_53_0 -lboost_system -lboost_thread ../SENTEL_EthernetCommsLibrary/dist/Debug_GCC_Static/GNU-MacOSX/libEthernetComms.a -framework IOKit -framework Carbon -framework Cocoa -framework AudioToolbox -framework System -framework OpenGL ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/libwx_osx_cocoa_xrc-2.9.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/libwx_osx_cocoa_webview-2.9.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/libwx_osx_cocoa_qa-2.9.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/libwx_base_net-2.9.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/libwx_osx_cocoa_html-2.9.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/libwx_osx_cocoa_adv-2.9.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/libwx_osx_cocoa_core-2.9.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/libwx_base_xml-2.9.a ../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/libwx_base-2.9.a -framework WebKit -lexpat -lwxtiff-2.9 -lwxjpeg-2.9 -lwxpng-2.9 -lz -lpthread -liconv
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/networktestutility_wx
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/networktestutility_wx: ../SENTEL_EthernetCommsLibrary/dist/Debug_GCC_Static/GNU-MacOSX/libEthernetComms.a
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/networktestutility_wx: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
@@ -70,35 +72,36 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/networktestutility_wx: ${OBJECTFILES}
 ${OBJECTDIR}/NetworkDlgMulticastTab.o: NetworkDlgMulticastTab.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -D_FILE_OFFSET_BITS=64 -D__WXMAC__ -D__WXOSX__ -D__WXOSX_COCOA__ -D__WXDEBUG__ -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/include -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/wx/include/osx_cocoa-ansi-static-2.9 -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkDlgMulticastTab.o NetworkDlgMulticastTab.cpp
+	$(COMPILE.cc) -g -D_FILE_OFFSET_BITS=64 -D__WXDEBUG__ -D__WXMAC__ -D__WXOSX_COCOA__ -D__WXOSX__ -DBOOST_DISABLE_ASSERTS -DBOOST_ENABLE_ASSERT_HANDLER -DBOOST_THREAD_USE_LIB -DNO_MFC -D_DEBUG -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/include -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/wx/include/osx_cocoa-ansi-static-2.9 -I../../SENTEL/Libraries/EthernetComms/include -I../../SENTEL/Libraries/EthernetComms/include/BoostAsioConnections -I../../Third_Party/Libraries/Boost/include/boost_1_53_0 -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkDlgMulticastTab.o NetworkDlgMulticastTab.cpp
 
 ${OBJECTDIR}/NetworkDlgTCPClientTab.o: NetworkDlgTCPClientTab.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -D_FILE_OFFSET_BITS=64 -D__WXMAC__ -D__WXOSX__ -D__WXOSX_COCOA__ -D__WXDEBUG__ -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/include -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/wx/include/osx_cocoa-ansi-static-2.9 -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkDlgTCPClientTab.o NetworkDlgTCPClientTab.cpp
+	$(COMPILE.cc) -g -D_FILE_OFFSET_BITS=64 -D__WXDEBUG__ -D__WXMAC__ -D__WXOSX_COCOA__ -D__WXOSX__ -DBOOST_DISABLE_ASSERTS -DBOOST_ENABLE_ASSERT_HANDLER -DBOOST_THREAD_USE_LIB -DNO_MFC -D_DEBUG -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/include -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/wx/include/osx_cocoa-ansi-static-2.9 -I../../SENTEL/Libraries/EthernetComms/include -I../../SENTEL/Libraries/EthernetComms/include/BoostAsioConnections -I../../Third_Party/Libraries/Boost/include/boost_1_53_0 -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkDlgTCPClientTab.o NetworkDlgTCPClientTab.cpp
 
 ${OBJECTDIR}/NetworkDlgUDPTab.o: NetworkDlgUDPTab.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -D_FILE_OFFSET_BITS=64 -D__WXMAC__ -D__WXOSX__ -D__WXOSX_COCOA__ -D__WXDEBUG__ -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/include -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/wx/include/osx_cocoa-ansi-static-2.9 -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkDlgUDPTab.o NetworkDlgUDPTab.cpp
+	$(COMPILE.cc) -g -D_FILE_OFFSET_BITS=64 -D__WXDEBUG__ -D__WXMAC__ -D__WXOSX_COCOA__ -D__WXOSX__ -DBOOST_DISABLE_ASSERTS -DBOOST_ENABLE_ASSERT_HANDLER -DBOOST_THREAD_USE_LIB -DNO_MFC -D_DEBUG -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/include -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/wx/include/osx_cocoa-ansi-static-2.9 -I../../SENTEL/Libraries/EthernetComms/include -I../../SENTEL/Libraries/EthernetComms/include/BoostAsioConnections -I../../Third_Party/Libraries/Boost/include/boost_1_53_0 -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkDlgUDPTab.o NetworkDlgUDPTab.cpp
 
 ${OBJECTDIR}/NetworkTestUtilityDlg.o: NetworkTestUtilityDlg.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -D_FILE_OFFSET_BITS=64 -D__WXMAC__ -D__WXOSX__ -D__WXOSX_COCOA__ -D__WXDEBUG__ -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/include -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/wx/include/osx_cocoa-ansi-static-2.9 -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkTestUtilityDlg.o NetworkTestUtilityDlg.cpp
+	$(COMPILE.cc) -g -D_FILE_OFFSET_BITS=64 -D__WXDEBUG__ -D__WXMAC__ -D__WXOSX_COCOA__ -D__WXOSX__ -DBOOST_DISABLE_ASSERTS -DBOOST_ENABLE_ASSERT_HANDLER -DBOOST_THREAD_USE_LIB -DNO_MFC -D_DEBUG -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/include -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/wx/include/osx_cocoa-ansi-static-2.9 -I../../SENTEL/Libraries/EthernetComms/include -I../../SENTEL/Libraries/EthernetComms/include/BoostAsioConnections -I../../Third_Party/Libraries/Boost/include/boost_1_53_0 -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkTestUtilityDlg.o NetworkTestUtilityDlg.cpp
 
 ${OBJECTDIR}/NetworkTestUtility_wxGUI.o: NetworkTestUtility_wxGUI.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -D_FILE_OFFSET_BITS=64 -D__WXMAC__ -D__WXOSX__ -D__WXOSX_COCOA__ -D__WXDEBUG__ -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/include -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/wx/include/osx_cocoa-ansi-static-2.9 -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkTestUtility_wxGUI.o NetworkTestUtility_wxGUI.cpp
+	$(COMPILE.cc) -g -D_FILE_OFFSET_BITS=64 -D__WXDEBUG__ -D__WXMAC__ -D__WXOSX_COCOA__ -D__WXOSX__ -DBOOST_DISABLE_ASSERTS -DBOOST_ENABLE_ASSERT_HANDLER -DBOOST_THREAD_USE_LIB -DNO_MFC -D_DEBUG -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/include -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/wx/include/osx_cocoa-ansi-static-2.9 -I../../SENTEL/Libraries/EthernetComms/include -I../../SENTEL/Libraries/EthernetComms/include/BoostAsioConnections -I../../Third_Party/Libraries/Boost/include/boost_1_53_0 -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkTestUtility_wxGUI.o NetworkTestUtility_wxGUI.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -D_FILE_OFFSET_BITS=64 -D__WXMAC__ -D__WXOSX__ -D__WXOSX_COCOA__ -D__WXDEBUG__ -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/include -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/wx/include/osx_cocoa-ansi-static-2.9 -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -D_FILE_OFFSET_BITS=64 -D__WXDEBUG__ -D__WXMAC__ -D__WXOSX_COCOA__ -D__WXOSX__ -DBOOST_DISABLE_ASSERTS -DBOOST_ENABLE_ASSERT_HANDLER -DBOOST_THREAD_USE_LIB -DNO_MFC -D_DEBUG -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/include -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/wx/include/osx_cocoa-ansi-static-2.9 -I../../SENTEL/Libraries/EthernetComms/include -I../../SENTEL/Libraries/EthernetComms/include/BoostAsioConnections -I../../Third_Party/Libraries/Boost/include/boost_1_53_0 -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
+	cd ../SENTEL_EthernetCommsLibrary && ${MAKE}  -f Makefile CONF=Debug_GCC_Static
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -107,6 +110,7 @@ ${OBJECTDIR}/main.o: main.cpp
 
 # Subprojects
 .clean-subprojects:
+	cd ../SENTEL_EthernetCommsLibrary && ${MAKE}  -f Makefile CONF=Debug_GCC_Static clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

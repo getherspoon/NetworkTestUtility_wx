@@ -17,12 +17,6 @@ class CNetworkTabDialog : public wxPanel
 {
     public:
         CNetworkTabDialog(      wxWindow *parent,
-                                int x, int y, int width, int height,
-                                long style = wxTAB_TRAVERSAL | wxNO_BORDER,
-                                const wxString& name = wxPanelNameStr )
-                : wxPanel( parent, x, y, width, height, style, name ) {}
-                
-        CNetworkTabDialog(      wxWindow *parent,
                                 wxWindowID winid = wxID_ANY,
                                 const wxPoint& pos = wxDefaultPosition,
                                 const wxSize& size = wxDefaultSize,
