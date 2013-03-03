@@ -21,7 +21,6 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=MinGW_Latest-Windows
 CND_DLIB_EXT=dll
 CND_CONF=Debug_OSX
 CND_DISTDIR=dist
