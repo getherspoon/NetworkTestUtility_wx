@@ -125,8 +125,8 @@ CNetworkDlgMulticastTab_wxGUI::CNetworkDlgMulticastTab_wxGUI( wxWindow* parent, 
 	m_staticTextPortRecv->Wrap( -1 );
 	gbSizer2->Add( m_staticTextPortRecv, wxGBPosition( 14, 2 ), wxGBSpan( 1, 1 ), wxALL, 5 );
 	
-	m_buttonJoin = new wxButton( this, wxID_ANY, wxT("Join"), wxDefaultPosition, wxDefaultSize, 0 );
-	gbSizer2->Add( m_buttonJoin, wxGBPosition( 15, 4 ), wxGBSpan( 1, 1 ), wxALL, 5 );
+	m_toggleBtnJoin = new wxToggleButton( this, wxID_ANY, wxT("Join"), wxDefaultPosition, wxDefaultSize, 0 );
+	gbSizer2->Add( m_toggleBtnJoin, wxGBPosition( 15, 4 ), wxGBSpan( 1, 1 ), wxALL, 5 );
 	
 	m_checkBoxUseSendForBoth = new wxCheckBox( this, wxID_ANY, wxT("Use Send for Both"), wxDefaultPosition, wxDefaultSize, 0 );
 	gbSizer2->Add( m_checkBoxUseSendForBoth, wxGBPosition( 13, 3 ), wxGBSpan( 1, 1 ), wxALIGN_CENTER_VERTICAL|wxALL, 5 );
@@ -135,16 +135,40 @@ CNetworkDlgMulticastTab_wxGUI::CNetworkDlgMulticastTab_wxGUI( wxWindow* parent, 
 	gbSizer2->Add( m_checkBoxEnableLoopback, wxGBPosition( 14, 3 ), wxGBSpan( 1, 1 ), wxALL, 5 );
 	
 	m_checkBoxAsync = new wxCheckBox( this, wxID_ANY, wxT("Asynchronous"), wxDefaultPosition, wxDefaultSize, 0 );
-	gbSizer2->Add( m_checkBoxAsync, wxGBPosition( 15, 3 ), wxGBSpan( 1, 1 ), wxALL, 5 );
+	gbSizer2->Add( m_checkBoxAsync, wxGBPosition( 15, 3 ), wxGBSpan( 1, 1 ), wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 	
 	bSizer2->Add( gbSizer2, 1, wxEXPAND, 5 );
 	
 	this->SetSizer( bSizer2 );
 	this->Layout();
+	
+	// Connect Events
+	m_buttonClearRecv->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnButtonClick_ClearRecvData ), NULL, this );
+	m_buttonClearSent->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnButtonClick_ClearSentData ), NULL, this );
+	m_buttonSend0->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnButtonClick_Send0 ), NULL, this );
+	m_checkBoxSendAsHex0->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnCheckBox_SendAsHex0 ), NULL, this );
+	m_buttonSend1->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnButtonClick_Send1 ), NULL, this );
+	m_checkBoxSendAsHex1->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnCheckBox_SendAsHex1 ), NULL, this );
+	m_toggleBtnJoin->Connect( wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnButtonClick_Join ), NULL, this );
+	m_checkBoxUseSendForBoth->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnCheckBox_UseSendForBoth ), NULL, this );
+	m_checkBoxEnableLoopback->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnCheckBox_EnableLoopBack ), NULL, this );
+	m_checkBoxAsync->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnCheckBox_Asynchronous ), NULL, this );
 }
 
 CNetworkDlgMulticastTab_wxGUI::~CNetworkDlgMulticastTab_wxGUI()
 {
+	// Disconnect Events
+	m_buttonClearRecv->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnButtonClick_ClearRecvData ), NULL, this );
+	m_buttonClearSent->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnButtonClick_ClearSentData ), NULL, this );
+	m_buttonSend0->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnButtonClick_Send0 ), NULL, this );
+	m_checkBoxSendAsHex0->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnCheckBox_SendAsHex0 ), NULL, this );
+	m_buttonSend1->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnButtonClick_Send1 ), NULL, this );
+	m_checkBoxSendAsHex1->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnCheckBox_SendAsHex1 ), NULL, this );
+	m_toggleBtnJoin->Disconnect( wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnButtonClick_Join ), NULL, this );
+	m_checkBoxUseSendForBoth->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnCheckBox_UseSendForBoth ), NULL, this );
+	m_checkBoxEnableLoopback->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnCheckBox_EnableLoopBack ), NULL, this );
+	m_checkBoxAsync->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnCheckBox_Asynchronous ), NULL, this );
+	
 }
 
 CNetworkDlgUDPTab_wxGUI::CNetworkDlgUDPTab_wxGUI( wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : CNetworkTabDialog( parent, id, pos, size, style )

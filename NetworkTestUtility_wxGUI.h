@@ -25,6 +25,7 @@ class CNetworkTabDialog;
 #include <wx/textctrl.h>
 #include <wx/checkbox.h>
 #include <wx/valtext.h>
+#include <wx/tglbtn.h>
 #include <wx/gbsizer.h>
 #include <wx/panel.h>
 
@@ -84,10 +85,23 @@ class CNetworkDlgMulticastTab_wxGUI : public CNetworkTabDialog
 		wxTextCtrl* m_textCtrlPortRecv;
 		wxStaticText* m_staticTextPortSend;
 		wxStaticText* m_staticTextPortRecv;
-		wxButton* m_buttonJoin;
+		wxToggleButton* m_toggleBtnJoin;
 		wxCheckBox* m_checkBoxUseSendForBoth;
 		wxCheckBox* m_checkBoxEnableLoopback;
 		wxCheckBox* m_checkBoxAsync;
+		
+		// Virtual event handlers, overide them in your derived class
+		virtual void OnButtonClick_ClearRecvData( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnButtonClick_ClearSentData( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnButtonClick_Send0( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnCheckBox_SendAsHex0( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnButtonClick_Send1( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnCheckBox_SendAsHex1( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnButtonClick_Join( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnCheckBox_UseSendForBoth( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnCheckBox_EnableLoopBack( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnCheckBox_Asynchronous( wxCommandEvent& event ) { event.Skip(); }
+		
 	
 	public:
 		
