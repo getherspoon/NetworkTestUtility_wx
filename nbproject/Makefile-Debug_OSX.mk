@@ -21,7 +21,8 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_DLIB_EXT=dll
+CND_PLATFORM=GNU-MacOSX
+CND_DLIB_EXT=dylib
 CND_CONF=Debug_OSX
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -60,41 +61,41 @@ LDLIBSOPTIONS=-L../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-coco
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/networktestutility_wx.exe
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/networktestutility_wx
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/networktestutility_wx.exe: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/networktestutility_wx: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/networktestutility_wx ${OBJECTFILES} ${LDLIBSOPTIONS}
 
 ${OBJECTDIR}/NetworkDlgMulticastTab.o: NetworkDlgMulticastTab.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -D_FILE_OFFSET_BITS=64 -D__WXDEBUG__ -D__WXMAC__ -D__WXOSX_COCOA__ -D__WXOSX__ -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/include -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/wx/include/osx_cocoa-ansi-static-2.9 -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkDlgMulticastTab.o NetworkDlgMulticastTab.cpp
+	$(COMPILE.cc) -g -D_FILE_OFFSET_BITS=64 -D__WXMAC__ -D__WXOSX__ -D__WXOSX_COCOA__ -D__WXDEBUG__ -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/include -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/wx/include/osx_cocoa-ansi-static-2.9 -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkDlgMulticastTab.o NetworkDlgMulticastTab.cpp
 
 ${OBJECTDIR}/NetworkDlgTCPClientTab.o: NetworkDlgTCPClientTab.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -D_FILE_OFFSET_BITS=64 -D__WXDEBUG__ -D__WXMAC__ -D__WXOSX_COCOA__ -D__WXOSX__ -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/include -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/wx/include/osx_cocoa-ansi-static-2.9 -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkDlgTCPClientTab.o NetworkDlgTCPClientTab.cpp
+	$(COMPILE.cc) -g -D_FILE_OFFSET_BITS=64 -D__WXMAC__ -D__WXOSX__ -D__WXOSX_COCOA__ -D__WXDEBUG__ -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/include -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/wx/include/osx_cocoa-ansi-static-2.9 -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkDlgTCPClientTab.o NetworkDlgTCPClientTab.cpp
 
 ${OBJECTDIR}/NetworkDlgUDPTab.o: NetworkDlgUDPTab.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -D_FILE_OFFSET_BITS=64 -D__WXDEBUG__ -D__WXMAC__ -D__WXOSX_COCOA__ -D__WXOSX__ -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/include -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/wx/include/osx_cocoa-ansi-static-2.9 -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkDlgUDPTab.o NetworkDlgUDPTab.cpp
+	$(COMPILE.cc) -g -D_FILE_OFFSET_BITS=64 -D__WXMAC__ -D__WXOSX__ -D__WXOSX_COCOA__ -D__WXDEBUG__ -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/include -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/wx/include/osx_cocoa-ansi-static-2.9 -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkDlgUDPTab.o NetworkDlgUDPTab.cpp
 
 ${OBJECTDIR}/NetworkTestUtilityDlg.o: NetworkTestUtilityDlg.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -D_FILE_OFFSET_BITS=64 -D__WXDEBUG__ -D__WXMAC__ -D__WXOSX_COCOA__ -D__WXOSX__ -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/include -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/wx/include/osx_cocoa-ansi-static-2.9 -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkTestUtilityDlg.o NetworkTestUtilityDlg.cpp
+	$(COMPILE.cc) -g -D_FILE_OFFSET_BITS=64 -D__WXMAC__ -D__WXOSX__ -D__WXOSX_COCOA__ -D__WXDEBUG__ -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/include -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/wx/include/osx_cocoa-ansi-static-2.9 -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkTestUtilityDlg.o NetworkTestUtilityDlg.cpp
 
 ${OBJECTDIR}/NetworkTestUtility_wxGUI.o: NetworkTestUtility_wxGUI.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -D_FILE_OFFSET_BITS=64 -D__WXDEBUG__ -D__WXMAC__ -D__WXOSX_COCOA__ -D__WXOSX__ -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/include -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/wx/include/osx_cocoa-ansi-static-2.9 -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkTestUtility_wxGUI.o NetworkTestUtility_wxGUI.cpp
+	$(COMPILE.cc) -g -D_FILE_OFFSET_BITS=64 -D__WXMAC__ -D__WXOSX__ -D__WXOSX_COCOA__ -D__WXDEBUG__ -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/include -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/wx/include/osx_cocoa-ansi-static-2.9 -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkTestUtility_wxGUI.o NetworkTestUtility_wxGUI.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -D_FILE_OFFSET_BITS=64 -D__WXDEBUG__ -D__WXMAC__ -D__WXOSX_COCOA__ -D__WXOSX__ -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/include -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/wx/include/osx_cocoa-ansi-static-2.9 -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -D_FILE_OFFSET_BITS=64 -D__WXMAC__ -D__WXOSX__ -D__WXOSX_COCOA__ -D__WXDEBUG__ -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/include -I../../Third_Party/Libraries/wxWidgets/wxWidgets-2.9.4/build-cocoa-debug/lib/wx/include/osx_cocoa-ansi-static-2.9 -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
@@ -102,7 +103,7 @@ ${OBJECTDIR}/main.o: main.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/networktestutility_wx.exe
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/networktestutility_wx
 
 # Subprojects
 .clean-subprojects:
