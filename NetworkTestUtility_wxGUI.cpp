@@ -45,12 +45,12 @@ CNetworkDlgMulticastTab_wxGUI::CNetworkDlgMulticastTab_wxGUI( wxWindow* parent, 
 	gbSizer2->SetFlexibleDirection( wxBOTH );
 	gbSizer2->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
 	
-	m_listBoxRecv = new wxListBox( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, NULL, 0 ); 
-	gbSizer2->Add( m_listBoxRecv, wxGBPosition( 1, 0 ), wxGBSpan( 1, 8 ), wxALL|wxEXPAND, 5 );
-	
 	m_staticTextRecv = new wxStaticText( this, wxID_ANY, wxT("Received Data"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticTextRecv->Wrap( -1 );
 	gbSizer2->Add( m_staticTextRecv, wxGBPosition( 0, 0 ), wxGBSpan( 1, 1 ), wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+	
+	m_textCtrlRecvData = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,120 ), 0 );
+	gbSizer2->Add( m_textCtrlRecvData, wxGBPosition( 1, 0 ), wxGBSpan( 1, 8 ), wxALL|wxEXPAND, 5 );
 	
 	m_buttonClearRecv = new wxButton( this, wxID_ANY, wxT("Clear"), wxDefaultPosition, wxDefaultSize, 0 );
 	gbSizer2->Add( m_buttonClearRecv, wxGBPosition( 0, 1 ), wxGBSpan( 1, 1 ), wxALL, 5 );
@@ -62,8 +62,8 @@ CNetworkDlgMulticastTab_wxGUI::CNetworkDlgMulticastTab_wxGUI( wxWindow* parent, 
 	m_buttonClearSent = new wxButton( this, wxID_ANY, wxT("Clear"), wxDefaultPosition, wxDefaultSize, 0 );
 	gbSizer2->Add( m_buttonClearSent, wxGBPosition( 2, 1 ), wxGBSpan( 1, 1 ), wxALL, 5 );
 	
-	m_listBoxSend = new wxListBox( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, NULL, 0|wxHSCROLL|wxVSCROLL ); 
-	gbSizer2->Add( m_listBoxSend, wxGBPosition( 3, 0 ), wxGBSpan( 1, 8 ), wxALL|wxEXPAND, 5 );
+	m_textCtrlSentData = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,120 ), 0 );
+	gbSizer2->Add( m_textCtrlSentData, wxGBPosition( 3, 0 ), wxGBSpan( 1, 8 ), wxALL|wxEXPAND, 5 );
 	
 	m_staticTextSend = new wxStaticText( this, wxID_ANY, wxT("Send"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticTextSend->Wrap( -1 );
@@ -145,8 +145,10 @@ CNetworkDlgMulticastTab_wxGUI::CNetworkDlgMulticastTab_wxGUI( wxWindow* parent, 
 	// Connect Events
 	m_buttonClearRecv->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnButtonClick_ClearRecvData ), NULL, this );
 	m_buttonClearSent->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnButtonClick_ClearSentData ), NULL, this );
+	m_textCtrlSend0->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnTextSend0 ), NULL, this );
 	m_buttonSend0->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnButtonClick_Send0 ), NULL, this );
 	m_checkBoxSendAsHex0->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnCheckBox_SendAsHex0 ), NULL, this );
+	m_textCtrlSend1->Connect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnTextSend1 ), NULL, this );
 	m_buttonSend1->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnButtonClick_Send1 ), NULL, this );
 	m_checkBoxSendAsHex1->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnCheckBox_SendAsHex1 ), NULL, this );
 	m_toggleBtnJoin->Connect( wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnButtonClick_Join ), NULL, this );
@@ -160,8 +162,10 @@ CNetworkDlgMulticastTab_wxGUI::~CNetworkDlgMulticastTab_wxGUI()
 	// Disconnect Events
 	m_buttonClearRecv->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnButtonClick_ClearRecvData ), NULL, this );
 	m_buttonClearSent->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnButtonClick_ClearSentData ), NULL, this );
+	m_textCtrlSend0->Disconnect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnTextSend0 ), NULL, this );
 	m_buttonSend0->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnButtonClick_Send0 ), NULL, this );
 	m_checkBoxSendAsHex0->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnCheckBox_SendAsHex0 ), NULL, this );
+	m_textCtrlSend1->Disconnect( wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnTextSend1 ), NULL, this );
 	m_buttonSend1->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnButtonClick_Send1 ), NULL, this );
 	m_checkBoxSendAsHex1->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnCheckBox_SendAsHex1 ), NULL, this );
 	m_toggleBtnJoin->Disconnect( wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler( CNetworkDlgMulticastTab_wxGUI::OnButtonClick_Join ), NULL, this );

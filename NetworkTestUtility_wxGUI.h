@@ -19,15 +19,15 @@ class CNetworkTabDialog;
 #include <wx/settings.h>
 #include <wx/sizer.h>
 #include <wx/dialog.h>
-#include <wx/listbox.h>
 #include <wx/stattext.h>
-#include <wx/statline.h>
 #include <wx/textctrl.h>
+#include <wx/statline.h>
 #include <wx/checkbox.h>
 #include <wx/valtext.h>
 #include <wx/tglbtn.h>
 #include <wx/gbsizer.h>
 #include <wx/panel.h>
+#include <wx/listbox.h>
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -61,12 +61,12 @@ class CNetworkDlgMulticastTab_wxGUI : public CNetworkTabDialog
 	private:
 	
 	protected:
-		wxListBox* m_listBoxRecv;
 		wxStaticText* m_staticTextRecv;
+		wxTextCtrl* m_textCtrlRecvData;
 		wxButton* m_buttonClearRecv;
 		wxStaticText* m_staticTextSent;
 		wxButton* m_buttonClearSent;
-		wxListBox* m_listBoxSend;
+		wxTextCtrl* m_textCtrlSentData;
 		wxStaticText* m_staticTextSend;
 		wxStaticLine* m_staticline2;
 		wxTextCtrl* m_textCtrlSend0;
@@ -93,8 +93,10 @@ class CNetworkDlgMulticastTab_wxGUI : public CNetworkTabDialog
 		// Virtual event handlers, overide them in your derived class
 		virtual void OnButtonClick_ClearRecvData( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnButtonClick_ClearSentData( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnTextSend0( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnButtonClick_Send0( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnCheckBox_SendAsHex0( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnTextSend1( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnButtonClick_Send1( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnCheckBox_SendAsHex1( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnButtonClick_Join( wxCommandEvent& event ) { event.Skip(); }
@@ -105,7 +107,7 @@ class CNetworkDlgMulticastTab_wxGUI : public CNetworkTabDialog
 	
 	public:
 		
-		CNetworkDlgMulticastTab_wxGUI( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 694,513 ), long style = wxTAB_TRAVERSAL );
+		CNetworkDlgMulticastTab_wxGUI( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 651,635 ), long style = wxTAB_TRAVERSAL );
 		~CNetworkDlgMulticastTab_wxGUI();
 	
 };

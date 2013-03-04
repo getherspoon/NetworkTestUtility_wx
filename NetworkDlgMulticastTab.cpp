@@ -274,14 +274,14 @@ void CNetworkDlgMulticastTab::OnButtonClick_Send1( wxCommandEvent& event )
     this->SendUserInput( 1 );
 }
 
-void CNetworkDlgMulticastTab::OnButtonClick_ClearRecv( wxCommandEvent& event )
+void CNetworkDlgMulticastTab::OnButtonClick_ClearRecvData( wxCommandEvent& event )
 {
-    this->m_textCtrlMCGroupRecv->Clear();
+    this->m_textCtrlRecvData->Clear();
 }
 
-void CNetworkDlgMulticastTab::OnButtonClick_ClearSent( wxCommandEvent& event )
+void CNetworkDlgMulticastTab::OnButtonClick_ClearSentData( wxCommandEvent& event )
 {
-    this->m_textCtrlMCGroupSend->Clear();
+    this->m_textCtrlSentData->Clear();
 }
 
 void CNetworkDlgMulticastTab::OnCheckBox_UseSendForBoth( wxCommandEvent& event )
@@ -304,6 +304,34 @@ void CNetworkDlgMulticastTab::OnCheckBox_UseSendForBoth( wxCommandEvent& event )
     }
 }
 
+void CNetworkDlgMulticastTab::OnTextSend0( wxCommandEvent& event )
+{    
+    if( this->m_checkBoxSendAsHex0->GetValue() &&
+        this->EditBoxInvalid( 0 ) )
+    {
+        this->m_buttonSend0->Enable( false );
+    }	
+    else
+    {
+        wxString strTemp = this->m_textCtrlSend0->GetValue();            
+        this->m_buttonSend0->Enable( !strTemp.IsEmpty() );
+    }		    
+}
+
+void CNetworkDlgMulticastTab::OnTextSend1( wxCommandEvent& event )
+{
+    if( this->m_checkBoxSendAsHex1->GetValue() &&
+        this->EditBoxInvalid( 1 ) )
+    {
+        this->m_buttonSend1->Enable( false );
+    }	
+    else
+    {
+        wxString strTemp = this->m_textCtrlSend1->GetValue();            
+        this->m_buttonSend1->Enable( !strTemp.IsEmpty() );
+    }	
+}
+
 void CNetworkDlgMulticastTab::SendUserInput( const int p_iInputNumber )
 {
     if( p_iInputNumber < this->m_s_iSendCount )
@@ -321,7 +349,7 @@ void CNetworkDlgMulticastTab::SendUserInput( const int p_iInputNumber )
                 {				
                         std::string strSend( strText.mb_str() );
 
-                        bool bSendAsHex = ( wxCheck.GetValue() );
+                        bool bSendAsHex = ( wxCheck->GetValue() );
                         if( bSendAsHex && this->IsValidHexString( strSend ) )
                         {
                             // The string must be an even number of characters, so we'll pre-pend a leading 0
@@ -383,11 +411,7 @@ void CNetworkDlgMulticastTab::SendUserInput( const int p_iInputNumber )
                     {
                         ASSERT( false );
                     }
-
-                    // Update the Sent edit box
-                    CString strOld, strNew;
-                    this->m_editSent.GetWindowTextA( strOld );
-
+                    
                     if( bSendAsHex )
                     {
                         std::stringstream ss;
@@ -428,71 +452,110 @@ void CNetworkDlgMulticastTab::SendUserInput( const int p_iInputNumber )
                         }
                         strSend = "0x" + ss.str();
                     }
-
-                    if( strOld.IsEmpty() )
-                    {
-                        strNew.Format( "%s", strSend.c_str() );
-                    }
-                    else
-                    {
-                        strNew.Format( "%s\r\n%s", strOld, strSend.c_str() );
-                    }
-
-                    this->m_editSent.SetWindowTextA( strNew );
+                                        
+                    strSend.append( "\r\n" );
+                    this->m_textCtrlSentData->AppendText( strSend.c_str() );
                 }
             }
         }
     }
 }
 
+
+bool CNetworkDlgMulticastTab::EditBoxInvalid( int p_iIndex )
+{
+    bool bResult = false;
+    switch ( p_iIndex ) 
+    { 
+        case 0:
+        {
+            if( this->m_checkBoxSendAsHex0->GetValue() )
+            {
+                wxString strText = this->m_textCtrlSend0->GetValue();							
+                bResult = !this->IsValidHexString( std::string( strText.mb_str() ) );
+            }
+            break;
+        }
+        case 1:
+        {
+            if( this->m_checkBoxSendAsHex1->GetValue() )
+            {
+                wxString strText = this->m_textCtrlSend1->GetValue();							
+                bResult = !this->IsValidHexString( std::string( strText.mb_str() ) );
+            }
+            break;
+        }		
+        default:
+        {
+                break;
+        }
+    }		
+    return bResult;
+}
+
+bool CNetworkDlgMulticastTab::IsValidHexString( const std::string& p_strHex )
+{
+    bool bResult = !p_strHex.empty();
+    for( unsigned int i = 0; i < p_strHex.length() && bResult; ++i )
+    {
+        HexMapType::const_iterator it = this->m_s_mapHEX_CHARS.find( p_strHex.at( i ) );
+        if( it == this->m_s_mapHEX_CHARS.end() )
+        {
+                bResult = false;
+        }
+    }
+    return bResult;
+}
+
 void CNetworkDlgMulticastTab::ProcessRecvMessage( const std::string& p_strMessage, const std::string& p_strRecvFromAddress, const unsigned int p_usRecvFromPort, const boost::system::error_code& p_bstError )
 {
-//	if( !p_bstError )
-//	{
-//		CString strText, strNew;
-//		this->m_editReceived.GetWindowTextA( strText );
-//		strNew.Format( "%s\r\n%s: %s", strText, p_strRecvFromAddress.c_str(), p_strMessage.c_str() );
-//		this->m_editReceived.SetWindowTextA( strNew );
-//	}
-//	else
-//	{
-//		CString strMsg;
-//		strMsg.Format( "ERROR Receiving: %s", p_bstError.message().c_str() );
-//		::AfxMessageBox( strMsg );
-//	}
+    if( !p_bstError )
+    {
+        // wxString strText = this->m_textCtrlRecvData->GetValue();
+        wxString strNew;
+        strNew.Format( "%s: %s\r\n", p_strRecvFromAddress.c_str(), p_strMessage.c_str() );
+        this->m_textCtrlRecvData->AppendText( strNew );
+    }
+    else
+    {
+        std::string strError( "ERROR: " + p_bstError.message() );
+        wxMessageDialog *wxMsgDlg = new wxMessageDialog( this,
+                                                    wxT( strError ),
+                                                    wxT("ERROR!"), wxOK | wxICON_ERROR );
+        wxMsgDlg->ShowModal(); 
+    }
 }
 
 void CNetworkDlgMulticastTab::ProcessSendMessage( const std::string& p_strMessage, const boost::system::error_code& p_bstError )
 {
-//	if( !p_bstError )
-//	{		
-//	}
-//	else
-//	{
-//		CString strMsg;
-//		strMsg.Format( "ERROR Sending: %s", p_bstError.message().c_str() );
-//		::AfxMessageBox( strMsg );
-//	}
+    if( p_bstError )
+    {
+        std::string strError( "ERROR: " + p_bstError.message() );
+        wxMessageDialog *wxMsgDlg = new wxMessageDialog( this,
+                                                    wxT( strError ),
+                                                    wxT("ERROR!"), wxOK | wxICON_ERROR );
+        wxMsgDlg->ShowModal(); 
+    }
 }
 
 void CNetworkDlgMulticastTab::SyncListenThread()
 {
-//	this->m_bListen = true;
-//	while( this->m_bListen )
-//	{
-//		try
-//		{
-//			std::string strIp, strMsg;
-//			unsigned short usPort;
-//			boost::system::error_code bstError;
-//			if( this->m_pSyncComms.get() && this->m_pSyncComms->Receive( strMsg, strIp, usPort, bstError, 5000 ) )
-//			{
-//				this->ProcessRecvMessage( strMsg, strIp, usPort, bstError );
-//			}
-//		}
-//		catch( boost::system::system_error& ex )
-//		{
-//			TRACE("Listen Thread Exception: %s\n", ex.what() );
-//		}
-//	}
+    this->m_bListen = true;
+    while( this->m_bListen )
+    {
+        try
+        {
+            std::string strIp, strMsg;
+            unsigned short usPort;
+            boost::system::error_code bstError;
+            if( this->m_pSyncComms.get() && this->m_pSyncComms->Receive( strMsg, strIp, usPort, bstError, 5000 ) )
+            {
+                    this->ProcessRecvMessage( strMsg, strIp, usPort, bstError );
+            }
+        }
+        catch( boost::system::system_error& ex )
+        {
+                TRACE("Listen Thread Exception: %s\n", ex.what() );
+        }
+    }
 }
