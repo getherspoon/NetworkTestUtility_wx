@@ -27,7 +27,6 @@ class CNetworkTabDialog;
 #include <wx/tglbtn.h>
 #include <wx/gbsizer.h>
 #include <wx/panel.h>
-#include <wx/listbox.h>
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -93,10 +92,10 @@ class CNetworkDlgMulticastTab_wxGUI : public CNetworkTabDialog
 		// Virtual event handlers, overide them in your derived class
 		virtual void OnButtonClick_ClearRecvData( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnButtonClick_ClearSentData( wxCommandEvent& event ) { event.Skip(); }
-		virtual void OnTextSend0( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnText_Send0( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnButtonClick_Send0( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnCheckBox_SendAsHex0( wxCommandEvent& event ) { event.Skip(); }
-		virtual void OnTextSend1( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnText_Send1( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnButtonClick_Send1( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnCheckBox_SendAsHex1( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnButtonClick_Join( wxCommandEvent& event ) { event.Skip(); }
@@ -120,12 +119,10 @@ class CNetworkDlgUDPTab_wxGUI : public CNetworkTabDialog
 	private:
 	
 	protected:
-		wxListBox* m_listBoxRecv;
 		wxStaticText* m_staticTextRecv;
 		wxButton* m_buttonClearRecv;
 		wxStaticText* m_staticTextSent;
 		wxButton* m_buttonClearSent;
-		wxListBox* m_listBoxSend;
 		wxStaticText* m_staticTextSend;
 		wxStaticLine* m_staticline2;
 		wxTextCtrl* m_textCtrlSend0;
@@ -142,12 +139,24 @@ class CNetworkDlgUDPTab_wxGUI : public CNetworkTabDialog
 		wxStaticText* m_staticTextSendToPort;
 		wxStaticText* m_staticTextLocalListenPort;
 		wxTextCtrl* m_textCtrlLocalListeningPort;
-		wxButton* m_buttonStart;
 		wxCheckBox* m_checkBoxAsync;
+		wxToggleButton* m_toggleBtnListen;
+		wxTextCtrl* m_textCtrlRecvData;
+		wxTextCtrl* m_textCtrlSentData;
+		
+		// Virtual event handlers, overide them in your derived class
+		virtual void OnButtonClick_ClearRecvData( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnButtonClick_ClearSentData( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnText_Send0( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnButtonClick_Send0( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnText_Send1( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnButtonClick_Send1( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnToggle_Listen( wxCommandEvent& event ) { event.Skip(); }
+		
 	
 	public:
 		
-		CNetworkDlgUDPTab_wxGUI( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 694,467 ), long style = wxTAB_TRAVERSAL );
+		CNetworkDlgUDPTab_wxGUI( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 694,583 ), long style = wxTAB_TRAVERSAL );
 		~CNetworkDlgUDPTab_wxGUI();
 	
 };
@@ -160,12 +169,10 @@ class CNetworkDlgTCPClientTab_wxGUI : public CNetworkTabDialog
 	private:
 	
 	protected:
-		wxListBox* m_listBoxRecv;
 		wxStaticText* m_staticTextRecv;
 		wxButton* m_buttonClearRecv;
 		wxStaticText* m_staticTextSent;
 		wxButton* m_buttonClearSent;
-		wxListBox* m_listBoxSend;
 		wxStaticText* m_staticTextSend;
 		wxStaticLine* m_staticline2;
 		wxTextCtrl* m_textCtrlSend0;
@@ -180,12 +187,24 @@ class CNetworkDlgTCPClientTab_wxGUI : public CNetworkTabDialog
 		wxStaticText* m_staticTextServerAddress;
 		wxTextCtrl* m_textCtrlSendToPort;
 		wxStaticText* m_staticTextServerPort;
-		wxButton* m_buttonStart;
 		wxCheckBox* m_checkBoxAsync;
+		wxToggleButton* m_toggleBtnListen;
+		wxTextCtrl* m_textCtrlRecvData;
+		wxTextCtrl* m_textCtrlSentData;
+		
+		// Virtual event handlers, overide them in your derived class
+		virtual void OnButtonClick_ClearRecvData( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnButtonClick_ClearSentData( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnText_Send0( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnButtonClick_Send0( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnText_Send1( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnButtonClick_Send1( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnToggle_Listen( wxCommandEvent& event ) { event.Skip(); }
+		
 	
 	public:
 		
-		CNetworkDlgTCPClientTab_wxGUI( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 694,467 ), long style = wxTAB_TRAVERSAL );
+		CNetworkDlgTCPClientTab_wxGUI( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 694,588 ), long style = wxTAB_TRAVERSAL );
 		~CNetworkDlgTCPClientTab_wxGUI();
 	
 };

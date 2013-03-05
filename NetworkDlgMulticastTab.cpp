@@ -23,8 +23,6 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/assign/list_of.hpp>
 
-#include <wx/msgdlg.h>
-
 const wxString		CNetworkDlgMulticastTab::m_s_strJOIN_TEXT	= "Join";
 const wxString		CNetworkDlgMulticastTab::m_s_strUNJOIN_TEXT	= "Unjoin";
 
@@ -136,45 +134,36 @@ void CNetworkDlgMulticastTab::OnButtonClick_Join( wxCommandEvent& event )
             if( bSend && bRecv )
             {
                 this->m_pAsyncComms.reset( new CAsyncMulticastComms(	std::string( strIPRecv ),
-                                                                            usPortRecv,
-                                                                            std::string( strIPSend ),
-                                                                            usPortSend,
-                                                                            boost::bind( &CNetworkDlgMulticastTab::ProcessRecvMessage, this, _1, _2, _3, _4 ),
-                                                                            boost::bind( &CNetworkDlgMulticastTab::ProcessSendMessage, this, _1, _2 ),
-                                                                            ( this->m_checkBoxEnableLoopback->GetValue() ) ) );
+                                                                        usPortRecv,
+                                                                        std::string( strIPSend ),
+                                                                        usPortSend,
+                                                                        boost::bind( &CNetworkDlgMulticastTab::ProcessRecvMessage, this, _1, _2, _3, _4 ),
+                                                                        boost::bind( &CNetworkDlgMulticastTab::ProcessSendMessage, this, _1, _2 ),
+                                                                        ( this->m_checkBoxEnableLoopback->GetValue() ) ) );
             }
             else if( bSend && !bRecv )
             {
                 this->m_pAsyncComms.reset( new CAsyncMulticastComms(	std::string( strIPSend ),
-                                                                            usPortSend,
-                                                                            boost::bind( &CNetworkDlgMulticastTab::ProcessSendMessage, this, _1, _2 ) ) );
+                                                                        usPortSend,
+                                                                        boost::bind( &CNetworkDlgMulticastTab::ProcessSendMessage, this, _1, _2 ) ) );
             }
             else if( !bSend && bRecv )
             {
                 this->m_pAsyncComms.reset( new CAsyncMulticastComms(	std::string( strIPRecv ),
-                                                                            usPortRecv,
-                                                                            boost::bind( &CNetworkDlgMulticastTab::ProcessRecvMessage, this, _1, _2, _3, _4 ),
-                                                                            ( this->m_checkBoxEnableLoopback->GetValue() ) ) );
+                                                                        usPortRecv,
+                                                                        boost::bind( &CNetworkDlgMulticastTab::ProcessRecvMessage, this, _1, _2, _3, _4 ),
+                                                                        ( this->m_checkBoxEnableLoopback->GetValue() ) ) );
             }
             else
             {
-                    std::string strError( "ERROR: Cannot Send or Recv in this Configuration" );
-                    wxMessageDialog *wxMsgDlg = new wxMessageDialog( this,
-                                                                    wxT( strError ),
-                                                                    wxT("ERROR!"), wxOK | wxICON_ERROR );
-                    wxMsgDlg->ShowModal();
-
+                this->ErrorMessageBox( std::string( "ERROR: Cannot Send or Recv in this Configuration" ) );
             }
             if( this->m_pAsyncComms.get() )
             {
-                    if( !this->m_pAsyncComms->InitializeComms( bstError ) ) 
-                    {
-                        std::string strError( "ERROR: " + bstError.message() );
-                        wxMessageDialog *wxMsgDlg = new wxMessageDialog( this,
-                                                                    wxT( strError ),
-                                                                    wxT("ERROR!"), wxOK | wxICON_ERROR );
-                        wxMsgDlg->ShowModal();                            
-                    }
+                if( !this->m_pAsyncComms->InitializeComms( bstError ) ) 
+                {
+                    this->ErrorMessageBox( std::string( "ERROR: " + bstError.message() ) );
+                }
             }
         }
         else
@@ -200,21 +189,13 @@ void CNetworkDlgMulticastTab::OnButtonClick_Join( wxCommandEvent& event )
             }
             else
             {                    
-                    std::string strError( "ERROR: Cannot Send or Recv in this Configuration" );
-                    wxMessageDialog *wxMsgDlg = new wxMessageDialog( this,
-                                                                wxT( strError ),
-                                                                wxT("ERROR!"), wxOK | wxICON_ERROR );
-                    wxMsgDlg->ShowModal();
+                    this->ErrorMessageBox( std::string( "ERROR: Cannot Send or Recv in this Configuration" ) );
             }
             if( this->m_pSyncComms.get() )
             {
                 if( !this->m_pSyncComms->InitializeComms( bstError ) ) 
                 {                        
-                    std::string strError( "ERROR: " + bstError.message() );
-                    wxMessageDialog *wxMsgDlg = new wxMessageDialog( this,
-                                                                wxT( strError ),
-                                                                wxT("ERROR!"), wxOK | wxICON_ERROR );
-                    wxMsgDlg->ShowModal();
+                    this->ErrorMessageBox( std::string( "ERROR: " + bstError.message() ) );                   
                 }
                 else
                 {
@@ -304,7 +285,7 @@ void CNetworkDlgMulticastTab::OnCheckBox_UseSendForBoth( wxCommandEvent& event )
     }
 }
 
-void CNetworkDlgMulticastTab::OnTextSend0( wxCommandEvent& event )
+void CNetworkDlgMulticastTab::OnText_Send0( wxCommandEvent& event )
 {    
     if( this->m_checkBoxSendAsHex0->GetValue() &&
         this->EditBoxInvalid( 0 ) )
@@ -318,7 +299,7 @@ void CNetworkDlgMulticastTab::OnTextSend0( wxCommandEvent& event )
     }		    
 }
 
-void CNetworkDlgMulticastTab::OnTextSend1( wxCommandEvent& event )
+void CNetworkDlgMulticastTab::OnText_Send1( wxCommandEvent& event )
 {
     if( this->m_checkBoxSendAsHex1->GetValue() &&
         this->EditBoxInvalid( 1 ) )
@@ -400,11 +381,7 @@ void CNetworkDlgMulticastTab::SendUserInput( const int p_iInputNumber )
                         boost::system::error_code	bstError;    
                         if( !this->m_pSyncComms->Send( strSend, bstError ) )
                         {
-                            std::string strError( "ERROR: " + bstError.message() );
-                            wxMessageDialog *wxMsgDlg = new wxMessageDialog( this,
-                                                                        wxT( strError ),
-                                                                        wxT("ERROR!"), wxOK | wxICON_ERROR );
-                            wxMsgDlg->ShowModal();                         
+                            this->ErrorMessageBox( std::string( "ERROR: " + bstError.message() ) );
                         }
                     }
                     else
@@ -447,7 +424,7 @@ void CNetworkDlgMulticastTab::SendUserInput( const int p_iInputNumber )
                             }
                             catch( std::exception& ex )
                             {
-                                    TRACE( "EXCEPTION: %s\n", ex.what() );
+                                TRACE( "EXCEPTION: %s\n", ex.what() );
                             }
                         }
                         strSend = "0x" + ss.str();
@@ -518,11 +495,7 @@ void CNetworkDlgMulticastTab::ProcessRecvMessage( const std::string& p_strMessag
     }
     else
     {
-        std::string strError( "ERROR: " + p_bstError.message() );
-        wxMessageDialog *wxMsgDlg = new wxMessageDialog( this,
-                                                    wxT( strError ),
-                                                    wxT("ERROR!"), wxOK | wxICON_ERROR );
-        wxMsgDlg->ShowModal(); 
+        this->ErrorMessageBox( std::string( "ERROR: " + p_bstError.message() ) ); 
     }
 }
 
@@ -530,11 +503,7 @@ void CNetworkDlgMulticastTab::ProcessSendMessage( const std::string& p_strMessag
 {
     if( p_bstError )
     {
-        std::string strError( "ERROR: " + p_bstError.message() );
-        wxMessageDialog *wxMsgDlg = new wxMessageDialog( this,
-                                                    wxT( strError ),
-                                                    wxT("ERROR!"), wxOK | wxICON_ERROR );
-        wxMsgDlg->ShowModal(); 
+        this->ErrorMessageBox( std::string( "ERROR: " + p_bstError.message() ) );
     }
 }
 
@@ -550,12 +519,12 @@ void CNetworkDlgMulticastTab::SyncListenThread()
             boost::system::error_code bstError;
             if( this->m_pSyncComms.get() && this->m_pSyncComms->Receive( strMsg, strIp, usPort, bstError, 5000 ) )
             {
-                    this->ProcessRecvMessage( strMsg, strIp, usPort, bstError );
+                this->ProcessRecvMessage( strMsg, strIp, usPort, bstError );
             }
         }
         catch( boost::system::system_error& ex )
         {
-                TRACE("Listen Thread Exception: %s\n", ex.what() );
+            TRACE("Listen Thread Exception: %s\n", ex.what() );
         }
     }
 }

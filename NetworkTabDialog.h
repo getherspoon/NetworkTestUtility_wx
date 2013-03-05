@@ -26,6 +26,8 @@ class CNetworkTabDialog : public wxPanel
         virtual ~CNetworkTabDialog() {}
         
         virtual wxString	GetTabTitle() = 0;
+        
+        virtual void ErrorMessageBox( const std::string& p_strMessage );
 };
 #endif	/* NETWORKTABDIALOG_H */
 

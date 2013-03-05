@@ -44,8 +44,8 @@ public:
 //    void OnCheckBox_EnableLoopBack( wxCommandEvent& event );
 //    void OnCheckBox_Asynchronous( wxCommandEvent& event );
     
-    void OnTextSend0( wxCommandEvent& event );
-    void OnTextSend1( wxCommandEvent& event );
+    void OnText_Send0( wxCommandEvent& event );
+    void OnText_Send1( wxCommandEvent& event );
     
 protected:
     void ProcessRecvMessage( const std::string& p_strMessage, const std::string& p_strRecvFromAddress, const unsigned int p_usRecvFromPort, const boost::system::error_code& p_bstError );
