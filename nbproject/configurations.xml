@@ -11,17 +11,19 @@
     </logicalFolder>
     <logicalFolder name="f2" displayName="GUI" projectFiles="true">
       <logicalFolder name="f1" displayName="Header Files" projectFiles="true">
-        <itemPath>NetworkDlgMulticastTab.h</itemPath>
         <itemPath>NetworkDlgTCPClientTab.h</itemPath>
-        <itemPath>NetworkDlgUDPTab.h</itemPath>
+        <itemPath>NetworkPane_Multicast.h</itemPath>
+        <itemPath>NetworkPane_UDP.h</itemPath>
+        <itemPath>NetworkPanel_Base.h</itemPath>
         <itemPath>NetworkTabDialog.h</itemPath>
         <itemPath>NetworkTestUtilityDlg.h</itemPath>
         <itemPath>NetworkTestUtility_wxGUI.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f2" displayName="Source Files" projectFiles="true">
-        <itemPath>NetworkDlgMulticastTab.cpp</itemPath>
         <itemPath>NetworkDlgTCPClientTab.cpp</itemPath>
-        <itemPath>NetworkDlgUDPTab.cpp</itemPath>
+        <itemPath>NetworkPane_Multicast.cpp</itemPath>
+        <itemPath>NetworkPane_UDP.cpp</itemPath>
+        <itemPath>NetworkPanel_Base.cpp</itemPath>
         <itemPath>NetworkTabDialog.cpp</itemPath>
         <itemPath>NetworkTestUtilityDlg.cpp</itemPath>
         <itemPath>NetworkTestUtility_wxGUI.cpp</itemPath>
@@ -88,12 +90,12 @@
             <linkerLibLibItem>boost_system-mgw47-mt-sd-1_53</linkerLibLibItem>
             <linkerLibLibItem>boost_thread-mgw47-mt-sd-1_53</linkerLibLibItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../SENTEL_EthernetCommsLibrary"
+              <makeArtifact PL="../EthernetCommsLibrary"
                             CT="3"
                             CN="Debug_MinGW_Static"
-                            AC="true"
+                            AC="false"
                             BL="true"
-                            WD="../SENTEL_EthernetCommsLibrary"
+                            WD="../EthernetCommsLibrary"
                             BC="${MAKE}  -f Makefile CONF=Debug_MinGW_Static"
                             CC="${MAKE}  -f Makefile CONF=Debug_MinGW_Static clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libEthernetComms_D.a">
@@ -105,17 +107,21 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="NetworkDlgMulticastTab.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="NetworkDlgMulticastTab.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="NetworkDlgTCPClientTab.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="NetworkDlgTCPClientTab.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="NetworkDlgUDPTab.cpp" ex="false" tool="1" flavor2="0">
+      <item path="NetworkPane_Multicast.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="NetworkDlgUDPTab.h" ex="false" tool="3" flavor2="0">
+      <item path="NetworkPane_Multicast.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="NetworkPane_UDP.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="NetworkPane_UDP.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="NetworkPanel_Base.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="NetworkPanel_Base.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="NetworkTabDialog.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -186,17 +192,21 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="NetworkDlgMulticastTab.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="NetworkDlgMulticastTab.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="NetworkDlgTCPClientTab.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="NetworkDlgTCPClientTab.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="NetworkDlgUDPTab.cpp" ex="false" tool="1" flavor2="0">
+      <item path="NetworkPane_Multicast.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="NetworkDlgUDPTab.h" ex="false" tool="3" flavor2="0">
+      <item path="NetworkPane_Multicast.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="NetworkPane_UDP.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="NetworkPane_UDP.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="NetworkPanel_Base.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="NetworkPanel_Base.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="NetworkTabDialog.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -234,17 +244,21 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="NetworkDlgMulticastTab.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="NetworkDlgMulticastTab.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="NetworkDlgTCPClientTab.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="NetworkDlgTCPClientTab.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="NetworkDlgUDPTab.cpp" ex="false" tool="1" flavor2="0">
+      <item path="NetworkPane_Multicast.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="NetworkDlgUDPTab.h" ex="false" tool="3" flavor2="0">
+      <item path="NetworkPane_Multicast.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="NetworkPane_UDP.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="NetworkPane_UDP.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="NetworkPanel_Base.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="NetworkPanel_Base.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="NetworkTabDialog.cpp" ex="false" tool="1" flavor2="0">
       </item>

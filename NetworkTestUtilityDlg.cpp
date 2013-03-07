@@ -8,8 +8,8 @@
 #include "NetworkTestUtilityDlg.h"
 
 #include "NetworkTabDialog.h"
-#include "NetworkDlgMulticastTab.h"
-#include "NetworkDlgUDPTab.h"
+#include "NetworkPane_Multicast.h"
+#include "NetworkPane_UDP.h"
 #include "NetworkDlgTCPClientTab.h"
 
 #include <memory>
@@ -21,9 +21,16 @@ m_lCurrentTab( 0 )
 {
         this->m_tabNetworkCtrl.reset( new wxNotebook( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxBK_DEFAULT ) );
         
-        this->m_mapNetworkTabs[ CNetworkTestUtilityDlg::TAB_MULTICAST ]	= new CNetworkDlgMulticastTab( this->m_tabNetworkCtrl.get() );
-        this->m_mapNetworkTabs[ CNetworkTestUtilityDlg::TAB_UDP ]	= new CNetworkDlgUDPTab( this->m_tabNetworkCtrl.get() );
+        this->m_mapNetworkTabs[ CNetworkTestUtilityDlg::TAB_MULTICAST ]	= new CNetworkTabDialog( this->m_tabNetworkCtrl.get() );        
+        this->m_mapNetworkTabs[ CNetworkTestUtilityDlg::TAB_UDP ]	= new CNetworkTabDialog( this->m_tabNetworkCtrl.get() );
         //this->m_mapNetworkTabs[ CNetworkTestUtilityDlg::TAB_TCPCLIENT ]	= new CNetworkDlgTCPClientTab( this->m_tabNetworkCtrl.get() );
+        
+        boost::shared_ptr<CNetworkPane_Multicast> pMCPanel( new CNetworkPane_Multicast( this->m_mapNetworkTabs[ CNetworkTestUtilityDlg::TAB_MULTICAST ] ) );
+        this->m_mapNetworkTabs[ CNetworkTestUtilityDlg::TAB_MULTICAST ]->SetNetworkPanel( pMCPanel );
+        
+        boost::shared_ptr<CNetworkPane_UDP> pUDPPanel( new CNetworkPane_UDP( this->m_mapNetworkTabs[ CNetworkTestUtilityDlg::TAB_UDP ] ) );
+        this->m_mapNetworkTabs[ CNetworkTestUtilityDlg::TAB_UDP ]->SetNetworkPanel( pUDPPanel );
+        
      
         // The enum type: NetworkTabType will define the order in which the tabs are created
         // and displayed

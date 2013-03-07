@@ -6,35 +6,27 @@
  */
 
 #include "stdafx.h"
-#include "NetworkDlgMulticastTab.h"
+#include "NetworkPane_Multicast.h"
 
 #include "AsyncMulticastComms.h"
 #include "AsyncMulticastReceiver.h"
 #include "AsyncMulticastSender.h"
 
-#include "NetworkDlgMulticastTab.h"
+#include "NetworkTabDialog.h"
 
 #include "SyncMulticastComms.h"
 #include "SyncMulticastReceiver.h"
 #include "SyncMulticastSender.h"
+#include "NetworkTabDialog.h"
 
 #include <sstream>
 
 #include <boost/lexical_cast.hpp>
-#include <boost/assign/list_of.hpp>
 
-const wxString		CNetworkDlgMulticastTab::m_s_strJOIN_TEXT	= "Join";
-const wxString		CNetworkDlgMulticastTab::m_s_strUNJOIN_TEXT	= "Unjoin";
+const wxString		CNetworkPane_Multicast::m_s_strJOIN_TEXT	= "Join";
+const wxString		CNetworkPane_Multicast::m_s_strUNJOIN_TEXT	= "Unjoin";
 
-const CNetworkDlgMulticastTab::HexMapType	CNetworkDlgMulticastTab::m_s_mapHEX_CHARS = boost::assign::map_list_of
-( '0', 0 )( '1', 1 )( '2', 2 )( '3', 3 )( '4', 4 )( '5', 5 )( '6', 6 )( '7', 7 )( '8', 8 )( '9', 9 )
-( 'A', 10 )( 'B', 11 )( 'C', 12 )( 'D', 13 )( 'E', 14 )( 'F', 15 )
-( 'a', 10 )( 'b', 11 )( 'c', 12 )( 'd', 13 )( 'e', 14 )( 'f', 15 );
-
-const std::set<char> CNetworkDlgMulticastTab::m_s_setALLOWED_HEX_DELIMETERS = boost::assign::list_of
-( ' ' )( ':' )( '-' );
-
-CNetworkDlgMulticastTab::CNetworkDlgMulticastTab( wxWindow* parent ) 
+CNetworkPane_Multicast::CNetworkPane_Multicast( wxWindow* parent ) 
 :
 CNetworkDlgMulticastTab_wxGUI( parent ),
 m_bListen( false )
@@ -46,24 +38,19 @@ m_bListen( false )
     this->m_checkBoxUseSendForBoth->SetValue( true );
     wxCommandEvent ce;
     this->OnCheckBox_UseSendForBoth( ce );
-
-    wxString strTemp( this->m_textCtrlSend0->GetValue() );
-    this->m_textCtrlSend0->Enable( this->m_toggleBtnJoin->GetValue() );
-    this->m_buttonSend0->Enable( this->m_toggleBtnJoin->GetValue() && !strTemp.IsEmpty() );
-    this->m_checkBoxSendAsHex0->Enable( this->m_toggleBtnJoin->GetValue() );
     
-    strTemp = this->m_textCtrlSend1->GetValue();
-    this->m_textCtrlSend1->Enable( this->m_toggleBtnJoin->GetValue() );
-    this->m_buttonSend1->Enable( this->m_toggleBtnJoin->GetValue() && !strTemp.IsEmpty() );
-    this->m_checkBoxSendAsHex1->Enable( this->m_toggleBtnJoin->GetValue() );           
+    if( this->m_pParent )
+    {
+        this->m_pParent->UpdateSendEnable( this->m_toggleBtnJoin->GetValue() );
+    }
 }
 
-CNetworkDlgMulticastTab::~CNetworkDlgMulticastTab() 
+CNetworkPane_Multicast::~CNetworkPane_Multicast() 
 {
 }
 
 // CNetworkDlgMulticastTab message handlers
-void CNetworkDlgMulticastTab::OnButtonClick_Join( wxCommandEvent& event )
+void CNetworkPane_Multicast::OnButtonClick_Join( wxCommandEvent& event )
 {		
     if( this->m_toggleBtnJoin->GetValue() )
     {
@@ -126,8 +113,8 @@ void CNetworkDlgMulticastTab::OnButtonClick_Join( wxCommandEvent& event )
             }
         }
 
-        this->m_buttonSend0->Enable( bSend );
-        this->m_buttonSend1->Enable( bSend );        
+//        this->m_buttonSend0->Enable( bSend );
+//        this->m_buttonSend1->Enable( bSend );        
 
         if( this->m_checkBoxAsync->GetValue() )
         {
@@ -137,21 +124,21 @@ void CNetworkDlgMulticastTab::OnButtonClick_Join( wxCommandEvent& event )
                                                                         usPortRecv,
                                                                         std::string( strIPSend ),
                                                                         usPortSend,
-                                                                        boost::bind( &CNetworkDlgMulticastTab::ProcessRecvMessage, this, _1, _2, _3, _4 ),
-                                                                        boost::bind( &CNetworkDlgMulticastTab::ProcessSendMessage, this, _1, _2 ),
+                                                                        boost::bind( &CNetworkPane_Multicast::ProcessRecvMessage, this, _1, _2, _3, _4 ),
+                                                                        boost::bind( &CNetworkPane_Multicast::ProcessSendMessage, this, _1, _2 ),
                                                                         ( this->m_checkBoxEnableLoopback->GetValue() ) ) );
             }
             else if( bSend && !bRecv )
             {
                 this->m_pAsyncComms.reset( new CAsyncMulticastComms(	std::string( strIPSend ),
                                                                         usPortSend,
-                                                                        boost::bind( &CNetworkDlgMulticastTab::ProcessSendMessage, this, _1, _2 ) ) );
+                                                                        boost::bind( &CNetworkPane_Multicast::ProcessSendMessage, this, _1, _2 ) ) );
             }
             else if( !bSend && bRecv )
             {
                 this->m_pAsyncComms.reset( new CAsyncMulticastComms(	std::string( strIPRecv ),
                                                                         usPortRecv,
-                                                                        boost::bind( &CNetworkDlgMulticastTab::ProcessRecvMessage, this, _1, _2, _3, _4 ),
+                                                                        boost::bind( &CNetworkPane_Multicast::ProcessRecvMessage, this, _1, _2, _3, _4 ),
                                                                         ( this->m_checkBoxEnableLoopback->GetValue() ) ) );
             }
             else
@@ -199,7 +186,7 @@ void CNetworkDlgMulticastTab::OnButtonClick_Join( wxCommandEvent& event )
                 }
                 else
                 {
-                    this->m_bstListen.reset( new boost::thread( &CNetworkDlgMulticastTab::SyncListenThread, this ) );
+                    this->m_bstListen.reset( new boost::thread( &CNetworkPane_Multicast::SyncListenThread, this ) );
                 }
             }
         }		
@@ -234,38 +221,13 @@ void CNetworkDlgMulticastTab::OnButtonClick_Join( wxCommandEvent& event )
         this->m_pSyncComms.reset();	
     }
 
-    wxString strTemp( this->m_textCtrlSend0->GetValue() );
-    this->m_textCtrlSend0->Enable( this->m_toggleBtnJoin->GetValue() );
-    this->m_buttonSend0->Enable( this->m_toggleBtnJoin->GetValue() && !strTemp.IsEmpty() );
-    this->m_checkBoxSendAsHex0->Enable( this->m_toggleBtnJoin->GetValue() );
-    
-    strTemp = this->m_textCtrlSend1->GetValue();
-    this->m_textCtrlSend1->Enable( this->m_toggleBtnJoin->GetValue() );
-    this->m_buttonSend1->Enable( this->m_toggleBtnJoin->GetValue() && !strTemp.IsEmpty() );
-    this->m_checkBoxSendAsHex1->Enable( this->m_toggleBtnJoin->GetValue() );    
+    if( this->m_pParent )
+    {
+        this->m_pParent->UpdateSendEnable( this->m_toggleBtnJoin->GetValue() );
+    }    
 }
 
-void CNetworkDlgMulticastTab::OnButtonClick_Send0( wxCommandEvent& event )
-{
-    this->SendUserInput( 0 );
-}
-
-void CNetworkDlgMulticastTab::OnButtonClick_Send1( wxCommandEvent& event )
-{
-    this->SendUserInput( 1 );
-}
-
-void CNetworkDlgMulticastTab::OnButtonClick_ClearRecvData( wxCommandEvent& event )
-{
-    this->m_textCtrlRecvData->Clear();
-}
-
-void CNetworkDlgMulticastTab::OnButtonClick_ClearSentData( wxCommandEvent& event )
-{
-    this->m_textCtrlSentData->Clear();
-}
-
-void CNetworkDlgMulticastTab::OnCheckBox_UseSendForBoth( wxCommandEvent& event )
+void CNetworkPane_Multicast::OnCheckBox_UseSendForBoth( wxCommandEvent& event )
 {
     if( this->m_checkBoxUseSendForBoth->GetValue() )
     {
@@ -285,213 +247,43 @@ void CNetworkDlgMulticastTab::OnCheckBox_UseSendForBoth( wxCommandEvent& event )
     }
 }
 
-void CNetworkDlgMulticastTab::OnText_Send0( wxCommandEvent& event )
-{    
-    if( this->m_checkBoxSendAsHex0->GetValue() &&
-        this->EditBoxInvalid( 0 ) )
-    {
-        this->m_buttonSend0->Enable( false );
-    }	
-    else
-    {
-        wxString strTemp = this->m_textCtrlSend0->GetValue();            
-        this->m_buttonSend0->Enable( !strTemp.IsEmpty() );
-    }		    
-}
-
-void CNetworkDlgMulticastTab::OnText_Send1( wxCommandEvent& event )
-{
-    if( this->m_checkBoxSendAsHex1->GetValue() &&
-        this->EditBoxInvalid( 1 ) )
-    {
-        this->m_buttonSend1->Enable( false );
-    }	
-    else
-    {
-        wxString strTemp = this->m_textCtrlSend1->GetValue();            
-        this->m_buttonSend1->Enable( !strTemp.IsEmpty() );
-    }	
-}
-
-void CNetworkDlgMulticastTab::SendUserInput( const int p_iInputNumber )
-{
-    if( p_iInputNumber < this->m_s_iSendCount )
-    {
-        wxTextCtrl* wxSend =    p_iInputNumber == 0 ? this->m_textCtrlSend0 : 
-                                p_iInputNumber == 1 ? this->m_textCtrlSend1 : NULL;
-        wxCheckBox* wxCheck=    p_iInputNumber == 0 ? this->m_checkBoxSendAsHex0 : 
-                                p_iInputNumber == 1 ? this->m_checkBoxSendAsHex1 : NULL;
-        if( wxSend )
-        {
-            wxString strText = wxSend->GetValue();
-            if( !strText.IsEmpty() )
-            {
-                if( this->m_pAsyncComms.get() || this->m_pSyncComms.get() )
-                {				
-                        std::string strSend( strText.mb_str() );
-
-                        bool bSendAsHex = ( wxCheck->GetValue() );
-                        if( bSendAsHex && this->IsValidHexString( strSend ) )
-                        {
-                            // The string must be an even number of characters, so we'll pre-pend a leading 0
-                            // if it is not.
-                            std::string strHex;				
-                            if( strSend.length() % 2 != 0 )
-                            {
-                                strSend = "0" + strSend;
-                            }
-                            for( std::string::iterator itSend = strSend.begin(); itSend != strSend.end(); )
-                            {
-                                try
-                                {
-                                    // Find the first character
-                                    HexMapType::const_iterator itBit1 = m_s_mapHEX_CHARS.find( *itSend++ );															
-                                    HexMapType::const_iterator itBit2 = m_s_mapHEX_CHARS.end();
-                                    if( itSend != strSend.end() )
-                                    {
-                                            itBit2 = m_s_mapHEX_CHARS.find( *itSend++ );
-                                    }				
-                                    unsigned int uValue1 = 0;
-                                    unsigned int uValue2 = 0;
-                                    if( itBit1 != m_s_mapHEX_CHARS.end() )
-                                    {
-                                            uValue1 = boost::lexical_cast<unsigned int>( itBit1->second );
-                                    }
-                                    if( itBit2 != m_s_mapHEX_CHARS.end() )
-                                    {
-                                            uValue2 = boost::lexical_cast<unsigned int>( itBit2->second );
-                                    }
-                                    strHex.push_back( ( uValue1 << 4 ) + uValue2 );														
-                                }
-                                catch( std::exception& ex )
-                                {
-                                        TRACE( "EXCEPTION: %s\n", ex.what() );
-                                }
-                            }
-                            strSend = strHex;
-                    }
-
-                    // Send over the wire
-                    if( this->m_pAsyncComms.get() )
-                    {
-                        this->m_pAsyncComms->Send( strSend );
-                    }
-                    else if( this->m_pSyncComms.get() )
-                    {
-                        boost::system::error_code	bstError;    
-                        if( !this->m_pSyncComms->Send( strSend, bstError ) )
-                        {
-                            this->ErrorMessageBox( std::string( "ERROR: " + bstError.message() ) );
-                        }
-                    }
-                    else
-                    {
-                        ASSERT( false );
-                    }
-                    
-                    if( bSendAsHex )
-                    {
-                        std::stringstream ss;
-                        for( unsigned int i = 0; i < strSend.length(); ++i )
-                        {
-                            try
-                            {
-                                unsigned int iSentByte = (unsigned int)strSend[i];
-                                unsigned int iFirstNibble = (iSentByte & 0xF0) >> 4;
-                                unsigned int iSecondNibble = (iSentByte & 0x0F);
-
-                                bool bFound = false;
-                                for( HexMapType::const_iterator it = this->m_s_mapHEX_CHARS.begin();
-                                         !bFound && it != this->m_s_mapHEX_CHARS.end(); ++it )
-                                {
-                                    if( it->second == iFirstNibble )
-                                    {
-                                            ss << it->first;
-                                            bFound = true;
-                                    }
-                                }
-
-                                bFound = false;
-                                for( HexMapType::const_iterator it = this->m_s_mapHEX_CHARS.begin();
-                                         !bFound && it != this->m_s_mapHEX_CHARS.end(); ++it )
-                                {
-                                    if( it->second == iSecondNibble )
-                                    {
-                                            ss << it->first;
-                                            bFound = true;
-                                    }
-                                }
-                            }
-                            catch( std::exception& ex )
-                            {
-                                TRACE( "EXCEPTION: %s\n", ex.what() );
-                            }
-                        }
-                        strSend = "0x" + ss.str();
-                    }
-                                        
-                    strSend.append( "\r\n" );
-                    this->m_textCtrlSentData->AppendText( strSend.c_str() );
-                }
-            }
-        }
-    }
-}
-
-
-bool CNetworkDlgMulticastTab::EditBoxInvalid( int p_iIndex )
+bool CNetworkPane_Multicast::SendUserInput( const std::string& p_strToSend, boost::system::error_code& p_bstError )
 {
     bool bResult = false;
-    switch ( p_iIndex ) 
-    { 
-        case 0:
+    if( this->m_pAsyncComms.get() || this->m_pSyncComms.get() )
+    {				                        
+        // Send over the wire
+        if( this->m_pAsyncComms.get() )
         {
-            if( this->m_checkBoxSendAsHex0->GetValue() )
-            {
-                wxString strText = this->m_textCtrlSend0->GetValue();							
-                bResult = !this->IsValidHexString( std::string( strText.mb_str() ) );
-            }
-            break;
+            this->m_pAsyncComms->Send( p_strToSend );
+            bResult = true;
         }
-        case 1:
-        {
-            if( this->m_checkBoxSendAsHex1->GetValue() )
+        else if( this->m_pSyncComms.get() )
+        {            
+            if( this->m_pSyncComms->Send( p_strToSend, p_bstError ) )
             {
-                wxString strText = this->m_textCtrlSend1->GetValue();							
-                bResult = !this->IsValidHexString( std::string( strText.mb_str() ) );
-            }
-            break;
-        }		
-        default:
-        {
-                break;
+                bResult = true;
+            }            
         }
-    }		
-    return bResult;
-}
-
-bool CNetworkDlgMulticastTab::IsValidHexString( const std::string& p_strHex )
-{
-    bool bResult = !p_strHex.empty();
-    for( unsigned int i = 0; i < p_strHex.length() && bResult; ++i )
-    {
-        HexMapType::const_iterator it = this->m_s_mapHEX_CHARS.find( p_strHex.at( i ) );
-        if( it == this->m_s_mapHEX_CHARS.end() )
+        else
         {
-                bResult = false;
+            ASSERT( false );            
         }
     }
     return bResult;
 }
 
-void CNetworkDlgMulticastTab::ProcessRecvMessage( const std::string& p_strMessage, const std::string& p_strRecvFromAddress, const unsigned int p_usRecvFromPort, const boost::system::error_code& p_bstError )
+void CNetworkPane_Multicast::ProcessRecvMessage( const std::string& p_strMessage, const std::string& p_strRecvFromAddress, const unsigned int p_usRecvFromPort, const boost::system::error_code& p_bstError )
 {
     if( !p_bstError )
     {
         // wxString strText = this->m_textCtrlRecvData->GetValue();
         wxString strNew;
         strNew.Format( "%s: %s\r\n", p_strRecvFromAddress.c_str(), p_strMessage.c_str() );
-        this->m_textCtrlRecvData->AppendText( strNew );
+        if( this->m_pParent )
+        {
+            this->m_pParent->AddRecvText( strNew );
+        }
     }
     else
     {
@@ -499,7 +291,7 @@ void CNetworkDlgMulticastTab::ProcessRecvMessage( const std::string& p_strMessag
     }
 }
 
-void CNetworkDlgMulticastTab::ProcessSendMessage( const std::string& p_strMessage, const boost::system::error_code& p_bstError )
+void CNetworkPane_Multicast::ProcessSendMessage( const std::string& p_strMessage, const boost::system::error_code& p_bstError )
 {
     if( p_bstError )
     {
@@ -507,7 +299,7 @@ void CNetworkDlgMulticastTab::ProcessSendMessage( const std::string& p_strMessag
     }
 }
 
-void CNetworkDlgMulticastTab::SyncListenThread()
+void CNetworkPane_Multicast::SyncListenThread()
 {
     this->m_bListen = true;
     while( this->m_bListen )

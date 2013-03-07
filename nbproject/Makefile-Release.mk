@@ -35,9 +35,10 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/NetworkDlgMulticastTab.o \
 	${OBJECTDIR}/NetworkDlgTCPClientTab.o \
-	${OBJECTDIR}/NetworkDlgUDPTab.o \
+	${OBJECTDIR}/NetworkPane_Multicast.o \
+	${OBJECTDIR}/NetworkPane_UDP.o \
+	${OBJECTDIR}/NetworkPanel_Base.o \
 	${OBJECTDIR}/NetworkTabDialog.o \
 	${OBJECTDIR}/NetworkTestUtilityDlg.o \
 	${OBJECTDIR}/NetworkTestUtility_wxGUI.o \
@@ -68,20 +69,25 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/networktestutility_wx.exe: ${OBJECTFI
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/networktestutility_wx ${OBJECTFILES} ${LDLIBSOPTIONS}
 
-${OBJECTDIR}/NetworkDlgMulticastTab.o: NetworkDlgMulticastTab.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkDlgMulticastTab.o NetworkDlgMulticastTab.cpp
-
 ${OBJECTDIR}/NetworkDlgTCPClientTab.o: NetworkDlgTCPClientTab.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkDlgTCPClientTab.o NetworkDlgTCPClientTab.cpp
 
-${OBJECTDIR}/NetworkDlgUDPTab.o: NetworkDlgUDPTab.cpp 
+${OBJECTDIR}/NetworkPane_Multicast.o: NetworkPane_Multicast.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkDlgUDPTab.o NetworkDlgUDPTab.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkPane_Multicast.o NetworkPane_Multicast.cpp
+
+${OBJECTDIR}/NetworkPane_UDP.o: NetworkPane_UDP.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkPane_UDP.o NetworkPane_UDP.cpp
+
+${OBJECTDIR}/NetworkPanel_Base.o: NetworkPanel_Base.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkPanel_Base.o NetworkPanel_Base.cpp
 
 ${OBJECTDIR}/NetworkTabDialog.o: NetworkTabDialog.cpp 
 	${MKDIR} -p ${OBJECTDIR}

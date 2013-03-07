@@ -6,7 +6,7 @@
  */
 
 #include "stdafx.h"
-#include "NetworkDlgUDPTab.h"
+#include "NetworkPane_UDP.h"
 
 #include "AsyncUDPComms.h"
 #include "AsyncUDPCommsImpl.h"
@@ -23,32 +23,18 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/assign/list_of.hpp>
 
-const wxString		CNetworkDlgUDPTab::m_s_strLISTEN_TEXT	= "Start";
-const wxString		CNetworkDlgUDPTab::m_s_strCLOSE_TEXT	= "Close";
+const wxString		CNetworkPane_UDP::m_s_strLISTEN_TEXT	= "Start";
+const wxString		CNetworkPane_UDP::m_s_strCLOSE_TEXT	= "Close";
 
-
-const CNetworkDlgUDPTab::HexMapType	CNetworkDlgUDPTab::m_s_mapHEX_CHARS = boost::assign::map_list_of
-( '0', 0 )( '1', 1 )( '2', 2 )( '3', 3 )( '4', 4 )( '5', 5 )( '6', 6 )( '7', 7 )( '8', 8 )( '9', 9 )
-( 'A', 10 )( 'B', 11 )( 'C', 12 )( 'D', 13 )( 'E', 14 )( 'F', 15 )
-( 'a', 10 )( 'b', 11 )( 'c', 12 )( 'd', 13 )( 'e', 14 )( 'f', 15 );
-
-const std::set<char> CNetworkDlgUDPTab::m_s_setALLOWED_HEX_DELIMETERS = boost::assign::list_of
-( ' ' )( ':' )( '-' );
-
-CNetworkDlgUDPTab::CNetworkDlgUDPTab( wxWindow* parent )
+CNetworkPane_UDP::CNetworkPane_UDP( wxWindow* parent )
 :
 CNetworkDlgUDPTab_wxGUI( parent ),
 m_bListen( false )
 {
-    wxString strTemp( this->m_textCtrlSend0->GetValue() );
-    this->m_textCtrlSend0->Enable( this->m_toggleBtnListen->GetValue() );
-    this->m_buttonSend0->Enable( this->m_toggleBtnListen->GetValue() && !strTemp.IsEmpty() );
-    this->m_checkBoxSendAsHex0->Enable( this->m_toggleBtnListen->GetValue() );
-    
-    strTemp = this->m_textCtrlSend1->GetValue();
-    this->m_textCtrlSend1->Enable( this->m_toggleBtnListen->GetValue() );
-    this->m_buttonSend1->Enable( this->m_toggleBtnListen->GetValue() && !strTemp.IsEmpty() );
-    this->m_checkBoxSendAsHex1->Enable( this->m_toggleBtnListen->GetValue() );
+    if( this->m_pParent )
+    {
+        this->m_pParent->UpdateSendEnable( this->m_toggleBtnListen->GetValue() );
+    }
 
     this->m_textCtrlSendToAddress->WriteText( "192.168.2.16" );
     this->m_textCtrlSendToPort->WriteText( "1234" );
@@ -56,31 +42,11 @@ m_bListen( false )
 }
 
 
-CNetworkDlgUDPTab::~CNetworkDlgUDPTab() 
+CNetworkPane_UDP::~CNetworkPane_UDP() 
 {
 }
 
-void CNetworkDlgUDPTab::OnButtonClick_ClearRecvData( wxCommandEvent& event )
-{   
-    this->m_textCtrlRecvData->Clear();
-}
-
-void CNetworkDlgUDPTab::OnButtonClick_ClearSentData( wxCommandEvent& event )
-{    
-    this->m_textCtrlSentData->Clear();
-}
-
-void CNetworkDlgUDPTab::OnButtonClick_Send0( wxCommandEvent& event )
-{
-    this->SendUserInput( 0 );
-}
-
-void CNetworkDlgUDPTab::OnButtonClick_Send1( wxCommandEvent& event )
-{
-    this->SendUserInput( 0 );
-}
-
-void CNetworkDlgUDPTab::OnToggle_Listen( wxCommandEvent& event )
+void CNetworkPane_UDP::OnToggle_Listen( wxCommandEvent& event )
 {
     if( this->m_toggleBtnListen->GetValue() )
     {
@@ -129,8 +95,8 @@ void CNetworkDlgUDPTab::OnToggle_Listen( wxCommandEvent& event )
                 }
         }
 
-        this->m_buttonSend0->Enable( bSend );
-        this->m_buttonSend1->Enable( bSend );
+//        this->m_buttonSend0->Enable( bSend );
+//        this->m_buttonSend1->Enable( bSend );
         
         this->m_toggleBtnListen->SetLabel( m_s_strCLOSE_TEXT );
 
@@ -141,15 +107,15 @@ void CNetworkDlgUDPTab::OnToggle_Listen( wxCommandEvent& event )
                 this->m_pAsyncComms.reset( new CAsyncUDPComms(	usListenPort, 
                                                                 std::string( strIP ), 
                                                                 usPort, 
-                                                                boost::bind( &CNetworkDlgUDPTab::ProcessRecvMessage, this, _1, _2, _3, _4 ),
-                                                                boost::bind( &CNetworkDlgUDPTab::ProcessSendMessage, this, _1, _2 ) ) );
+                                                                boost::bind( &CNetworkPane_UDP::ProcessRecvMessage, this, _1, _2, _3, _4 ),
+                                                                boost::bind( &CNetworkPane_UDP::ProcessSendMessage, this, _1, _2 ) ) );
 
             }
             else if( bSend && !bListen )
             {
                 this->m_pAsyncComms.reset( new CAsyncUDPComms(	std::string( strIP ), 
                                                                 usPort, 
-                                                                boost::bind( &CNetworkDlgUDPTab::ProcessSendMessage, this, _1, _2 ) ) );
+                                                                boost::bind( &CNetworkPane_UDP::ProcessSendMessage, this, _1, _2 ) ) );
 
                 if( !this->m_pAsyncComms->InitializeComms( bstError ) ) 
                 {
@@ -159,7 +125,7 @@ void CNetworkDlgUDPTab::OnToggle_Listen( wxCommandEvent& event )
             else if( !bSend && bListen )
             {
                 this->m_pAsyncComms.reset( new CAsyncUDPComms(	usListenPort, 
-                                                                boost::bind( &CNetworkDlgUDPTab::ProcessRecvMessage, this, _1, _2, _3, _4 ) ) );
+                                                                boost::bind( &CNetworkPane_UDP::ProcessRecvMessage, this, _1, _2, _3, _4 ) ) );
 
                 if( !this->m_pAsyncComms->InitializeComms( bstError ) ) 
                 {
@@ -207,7 +173,7 @@ void CNetworkDlgUDPTab::OnToggle_Listen( wxCommandEvent& event )
                 }
                 else
                 {
-                    this->m_bstListen.reset( new boost::thread( &CNetworkDlgUDPTab::SyncListenThread, this ) );
+                    this->m_bstListen.reset( new boost::thread( &CNetworkPane_UDP::SyncListenThread, this ) );
                 }
             }
         }			
@@ -238,51 +204,18 @@ void CNetworkDlgUDPTab::OnToggle_Listen( wxCommandEvent& event )
         this->m_pSyncComms.reset();		
     }
 
-    wxString strTemp( this->m_textCtrlSend0->GetValue() );
-    this->m_textCtrlSend0->Enable( this->m_toggleBtnListen->GetValue() );
-    this->m_buttonSend0->Enable( this->m_toggleBtnListen->GetValue() && !strTemp.IsEmpty() );
-    this->m_checkBoxSendAsHex0->Enable( this->m_toggleBtnListen->GetValue() );
-    
-    strTemp = this->m_textCtrlSend1->GetValue();
-    this->m_textCtrlSend1->Enable( this->m_toggleBtnListen->GetValue() );
-    this->m_buttonSend1->Enable( this->m_toggleBtnListen->GetValue() && !strTemp.IsEmpty() );
-    this->m_checkBoxSendAsHex1->Enable( this->m_toggleBtnListen->GetValue() ); 
+    if( this->m_pParent )
+    {
+        this->m_pParent->UpdateSendEnable( this->m_toggleBtnListen->GetValue() );
+    }
 }
 
-void CNetworkDlgUDPTab::OnText_Send0( wxCommandEvent& event )
-{
-    if( this->m_checkBoxSendAsHex0->GetValue() &&
-        this->EditBoxInvalid( 0 ) )
-    {
-        this->m_buttonSend0->Enable( false );
-    }	
-    else
-    {
-        wxString strTemp = this->m_textCtrlSend0->GetValue();            
-        this->m_buttonSend0->Enable( !strTemp.IsEmpty() );
-    }	
-}
-
-void CNetworkDlgUDPTab::OnText_Send1( wxCommandEvent& event )
-{
-    if( this->m_checkBoxSendAsHex1->GetValue() &&
-        this->EditBoxInvalid( 1 ) )
-    {
-        this->m_buttonSend1->Enable( false );
-    }	
-    else
-    {
-        wxString strTemp = this->m_textCtrlSend1->GetValue();            
-        this->m_buttonSend1->Enable( !strTemp.IsEmpty() );
-    }	
-}
-
-wxString CNetworkDlgUDPTab::GetTabTitle()
+wxString CNetworkPane_UDP::GetTabTitle()
 {
 	return "UDP";
 }
 
-void CNetworkDlgUDPTab::OnExit()
+void CNetworkPane_UDP::OnExit()
 {
     if( this->m_toggleBtnListen->GetValue() )
     {
@@ -292,138 +225,42 @@ void CNetworkDlgUDPTab::OnExit()
     }
 }
 
-void CNetworkDlgUDPTab::SendUserInput( const int p_iInputNumber )
+bool CNetworkPane_UDP::SendUserInput( const std::string& p_strToSend, boost::system::error_code& p_bstError )
 {
-    if( p_iInputNumber < this->m_s_iSendCount )
-    {
-        wxTextCtrl* wxSend =    p_iInputNumber == 0 ? this->m_textCtrlSend0 : 
-                                p_iInputNumber == 1 ? this->m_textCtrlSend1 : NULL;
-        wxCheckBox* wxCheck=    p_iInputNumber == 0 ? this->m_checkBoxSendAsHex0 : 
-                                p_iInputNumber == 1 ? this->m_checkBoxSendAsHex1 : NULL;
-        if( wxSend )
+    bool bResult = false;
+    if( this->m_pAsyncComms.get() || this->m_pSyncComms.get() )
+    {				                        
+        // Send over the wire
+        if( this->m_pAsyncComms.get() )
         {
-            wxString strText = wxSend->GetValue();
-            if( !strText.IsEmpty() )
+            this->m_pAsyncComms->Send( p_strToSend );
+            bResult = true;
+        }
+        else if( this->m_pSyncComms.get() )
+        {            
+            if( this->m_pSyncComms->Send( p_strToSend, p_bstError ) )
             {
-                if( this->m_pAsyncComms.get() || this->m_pSyncComms.get() )
-                {				
-                        std::string strSend( strText.mb_str() );
-
-                        bool bSendAsHex = ( wxCheck->GetValue() );
-                        if( bSendAsHex && this->IsValidHexString( strSend ) )
-                        {
-                            // The string must be an even number of characters, so we'll pre-pend a leading 0
-                            // if it is not.
-                            std::string strHex;				
-                            if( strSend.length() % 2 != 0 )
-                            {
-                                strSend = "0" + strSend;
-                            }
-                            for( std::string::iterator itSend = strSend.begin(); itSend != strSend.end(); )
-                            {
-                                try
-                                {
-                                    // Find the first character
-                                    HexMapType::const_iterator itBit1 = m_s_mapHEX_CHARS.find( *itSend++ );															
-                                    HexMapType::const_iterator itBit2 = m_s_mapHEX_CHARS.end();
-                                    if( itSend != strSend.end() )
-                                    {
-                                            itBit2 = m_s_mapHEX_CHARS.find( *itSend++ );
-                                    }				
-                                    unsigned int uValue1 = 0;
-                                    unsigned int uValue2 = 0;
-                                    if( itBit1 != m_s_mapHEX_CHARS.end() )
-                                    {
-                                            uValue1 = boost::lexical_cast<unsigned int>( itBit1->second );
-                                    }
-                                    if( itBit2 != m_s_mapHEX_CHARS.end() )
-                                    {
-                                            uValue2 = boost::lexical_cast<unsigned int>( itBit2->second );
-                                    }
-                                    strHex.push_back( ( uValue1 << 4 ) + uValue2 );														
-                                }
-                                catch( std::exception& ex )
-                                {
-                                        TRACE( "EXCEPTION: %s\n", ex.what() );
-                                }
-                            }
-                            strSend = strHex;
-                    }
-
-                    // Send over the wire
-                    if( this->m_pAsyncComms.get() )
-                    {
-                        this->m_pAsyncComms->Send( strSend );
-                    }
-                    else if( this->m_pSyncComms.get() )
-                    {
-                        boost::system::error_code	bstError;    
-                        if( !this->m_pSyncComms->Send( strSend, bstError ) )
-                        {
-                            this->ErrorMessageBox( std::string( "ERROR: " + bstError.message() ) );
-                        }
-                    }
-                    else
-                    {
-                        ASSERT( false );
-                    }
-                    
-                    if( bSendAsHex )
-                    {
-                        std::stringstream ss;
-                        for( unsigned int i = 0; i < strSend.length(); ++i )
-                        {
-                            try
-                            {
-                                unsigned int iSentByte = (unsigned int)strSend[i];
-                                unsigned int iFirstNibble = (iSentByte & 0xF0) >> 4;
-                                unsigned int iSecondNibble = (iSentByte & 0x0F);
-
-                                bool bFound = false;
-                                for( HexMapType::const_iterator it = this->m_s_mapHEX_CHARS.begin();
-                                         !bFound && it != this->m_s_mapHEX_CHARS.end(); ++it )
-                                {
-                                    if( it->second == iFirstNibble )
-                                    {
-                                            ss << it->first;
-                                            bFound = true;
-                                    }
-                                }
-
-                                bFound = false;
-                                for( HexMapType::const_iterator it = this->m_s_mapHEX_CHARS.begin();
-                                         !bFound && it != this->m_s_mapHEX_CHARS.end(); ++it )
-                                {
-                                    if( it->second == iSecondNibble )
-                                    {
-                                            ss << it->first;
-                                            bFound = true;
-                                    }
-                                }
-                            }
-                            catch( std::exception& ex )
-                            {
-                                TRACE( "EXCEPTION: %s\n", ex.what() );
-                            }
-                        }
-                        strSend = "0x" + ss.str();
-                    }
-                                        
-                    strSend.append( "\r\n" );
-                    this->m_textCtrlSentData->AppendText( strSend.c_str() );
-                }
-            }
+                bResult = true;
+            }            
+        }
+        else
+        {
+            ASSERT( false );            
         }
     }
+    return bResult;
 }
 
-void CNetworkDlgUDPTab::ProcessRecvMessage( const std::string& p_strMessage, const std::string& p_strRecvFromAddress, const unsigned int p_usRecvFromPort, const boost::system::error_code& p_bstError )
+void CNetworkPane_UDP::ProcessRecvMessage( const std::string& p_strMessage, const std::string& p_strRecvFromAddress, const unsigned int p_usRecvFromPort, const boost::system::error_code& p_bstError )
 {
     if( !p_bstError )
     {        
         wxString strNew;
         strNew.Format( "%s: %s\r\n", p_strRecvFromAddress.c_str(), p_strMessage.c_str() );
-        this->m_textCtrlRecvData->AppendText( strNew );
+        if( this->m_pParent )
+        {
+            this->m_pParent->AddRecvText( strNew );
+        }
     }
     else
     {
@@ -431,7 +268,7 @@ void CNetworkDlgUDPTab::ProcessRecvMessage( const std::string& p_strMessage, con
     }
 }
 
-void CNetworkDlgUDPTab::ProcessSendMessage( const std::string& p_strMessage, const boost::system::error_code& p_bstError )
+void CNetworkPane_UDP::ProcessSendMessage( const std::string& p_strMessage, const boost::system::error_code& p_bstError )
 {
 	if( !p_bstError )
 	{		
@@ -444,7 +281,7 @@ void CNetworkDlgUDPTab::ProcessSendMessage( const std::string& p_strMessage, con
 	}
 }
 
-void CNetworkDlgUDPTab::SyncListenThread()
+void CNetworkPane_UDP::SyncListenThread()
 {
     this->m_bListen = true;
     while( this->m_bListen )
@@ -458,49 +295,4 @@ void CNetworkDlgUDPTab::SyncListenThread()
         }
         boost::this_thread::sleep( boost::posix_time::milliseconds( 100 ) );
     }
-}
-
-bool CNetworkDlgUDPTab::EditBoxInvalid( int p_iIndex )
-{
-    bool bResult = false;
-    switch ( p_iIndex ) 
-    { 
-        case 0:
-        {
-            if( this->m_checkBoxSendAsHex0->GetValue() )
-            {
-                wxString strText = this->m_textCtrlSend0->GetValue();							
-                bResult = !this->IsValidHexString( std::string( strText.mb_str() ) );
-            }
-            break;
-        }
-        case 1:
-        {
-            if( this->m_checkBoxSendAsHex1->GetValue() )
-            {
-                wxString strText = this->m_textCtrlSend1->GetValue();							
-                bResult = !this->IsValidHexString( std::string( strText.mb_str() ) );
-            }
-            break;
-        }		
-        default:
-        {
-                break;
-        }
-    }		
-    return bResult;
-}
-
-bool CNetworkDlgUDPTab::IsValidHexString( const std::string& p_strHex )
-{
-    bool bResult = !p_strHex.empty();
-    for( unsigned int i = 0; i < p_strHex.length() && bResult; ++i )
-    {
-        HexMapType::const_iterator it = this->m_s_mapHEX_CHARS.find( p_strHex.at( i ) );
-        if( it == this->m_s_mapHEX_CHARS.end() )
-        {
-                bResult = false;
-        }
-    }
-    return bResult;
 }
