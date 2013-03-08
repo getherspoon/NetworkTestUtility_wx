@@ -42,6 +42,7 @@ class CNetworkTestUtilityDlg_wxGUI : public wxDialog
 		wxButton* m_buttonExit;
 		
 		// Virtual event handlers, overide them in your derived class
+		virtual void OnClose( wxCloseEvent& event ) { event.Skip(); }
 		virtual void OnButtonClick_Exit( wxCommandEvent& event ) { event.Skip(); }
 		
 	

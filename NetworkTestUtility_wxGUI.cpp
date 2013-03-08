@@ -26,12 +26,14 @@ CNetworkTestUtilityDlg_wxGUI::CNetworkTestUtilityDlg_wxGUI( wxWindow* parent, wx
 	this->Centre( wxVERTICAL );
 	
 	// Connect Events
+	this->Connect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( CNetworkTestUtilityDlg_wxGUI::OnClose ) );
 	m_buttonExit->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CNetworkTestUtilityDlg_wxGUI::OnButtonClick_Exit ), NULL, this );
 }
 
 CNetworkTestUtilityDlg_wxGUI::~CNetworkTestUtilityDlg_wxGUI()
 {
 	// Disconnect Events
+	this->Disconnect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( CNetworkTestUtilityDlg_wxGUI::OnClose ) );
 	m_buttonExit->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( CNetworkTestUtilityDlg_wxGUI::OnButtonClick_Exit ), NULL, this );
 	
 }

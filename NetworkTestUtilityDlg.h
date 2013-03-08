@@ -36,6 +36,11 @@ class CNetworkTestUtilityDlg : public CNetworkTestUtilityDlg_wxGUI
         CNetworkTestUtilityDlg(  wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 117,80 ), long style = wxDEFAULT_DIALOG_STYLE );
         virtual ~CNetworkTestUtilityDlg();
         
+        void OnClose( wxCloseEvent& event )
+        {
+            wxCommandEvent ce;
+            this->OnButtonClick_Exit( ce );
+        }
         void OnButtonClick_Exit( wxCommandEvent& event ) 
         {
             wxTheApp->Exit();

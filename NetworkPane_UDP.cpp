@@ -255,8 +255,10 @@ void CNetworkPane_UDP::ProcessRecvMessage( const std::string& p_strMessage, cons
 {
     if( !p_bstError )
     {        
-        wxString strNew;
-        strNew.Format( "%s: %s\r\n", p_strRecvFromAddress.c_str(), p_strMessage.c_str() );
+        wxString strNew( wxString( p_strRecvFromAddress.c_str(), wxConvUTF8 ) );
+        strNew += ": ";
+        strNew += wxString( p_strMessage.c_str(), wxConvUTF8 );
+        strNew += "\r\n";        
         if( this->m_pParent )
         {
             this->m_pParent->AddRecvText( strNew );

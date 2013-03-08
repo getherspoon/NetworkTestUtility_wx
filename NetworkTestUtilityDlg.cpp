@@ -48,6 +48,8 @@ m_lCurrentTab( 0 )
         this->GetSizer()->Show((wxWindow*)m_tabNetworkCtrl.get() );
         this->GetSizer()->Layout();        
         this->GetSizer()->Fit( this );
+        
+        this->Centre();
 }
 
 CNetworkTestUtilityDlg::~CNetworkTestUtilityDlg()

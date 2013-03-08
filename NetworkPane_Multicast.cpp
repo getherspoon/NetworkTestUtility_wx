@@ -276,10 +276,11 @@ bool CNetworkPane_Multicast::SendUserInput( const std::string& p_strToSend, boos
 void CNetworkPane_Multicast::ProcessRecvMessage( const std::string& p_strMessage, const std::string& p_strRecvFromAddress, const unsigned int p_usRecvFromPort, const boost::system::error_code& p_bstError )
 {
     if( !p_bstError )
-    {
-        // wxString strText = this->m_textCtrlRecvData->GetValue();
-        wxString strNew;
-        strNew.Format( "%s: %s\r\n", p_strRecvFromAddress.c_str(), p_strMessage.c_str() );
+    {        
+        wxString strNew( wxString( p_strRecvFromAddress.c_str(), wxConvUTF8 ) );
+        strNew += ": ";
+        strNew += wxString( p_strMessage.c_str(), wxConvUTF8 );
+        strNew += "\r\n";        
         if( this->m_pParent )
         {
             this->m_pParent->AddRecvText( strNew );
