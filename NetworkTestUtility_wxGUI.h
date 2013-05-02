@@ -121,7 +121,7 @@ class CNetworkDlgUDPTab_wxGUI : public CNetworkPanel_Base
 ///////////////////////////////////////////////////////////////////////////////
 /// Class CNetworkDlgTCPClientTab_wxGUI
 ///////////////////////////////////////////////////////////////////////////////
-class CNetworkDlgTCPClientTab_wxGUI : public wxPanel 
+class CNetworkDlgTCPClientTab_wxGUI : public CNetworkPanel_Base
 {
 	private:
 	

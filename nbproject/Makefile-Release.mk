@@ -21,7 +21,7 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=MinGW_Latest-Windows
+CND_PLATFORM=MinGW-Windows
 CND_DLIB_EXT=dll
 CND_CONF=Release
 CND_DISTDIR=dist
@@ -35,8 +35,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/NetworkDlgTCPClientTab.o \
 	${OBJECTDIR}/NetworkPane_Multicast.o \
+	${OBJECTDIR}/NetworkPane_TCPClient.o \
 	${OBJECTDIR}/NetworkPane_UDP.o \
 	${OBJECTDIR}/NetworkPanel_Base.o \
 	${OBJECTDIR}/NetworkTabDialog.o \
@@ -69,15 +69,15 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/networktestutility_wx.exe: ${OBJECTFI
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/networktestutility_wx ${OBJECTFILES} ${LDLIBSOPTIONS}
 
-${OBJECTDIR}/NetworkDlgTCPClientTab.o: NetworkDlgTCPClientTab.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkDlgTCPClientTab.o NetworkDlgTCPClientTab.cpp
-
 ${OBJECTDIR}/NetworkPane_Multicast.o: NetworkPane_Multicast.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkPane_Multicast.o NetworkPane_Multicast.cpp
+
+${OBJECTDIR}/NetworkPane_TCPClient.o: NetworkPane_TCPClient.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/NetworkPane_TCPClient.o NetworkPane_TCPClient.cpp
 
 ${OBJECTDIR}/NetworkPane_UDP.o: NetworkPane_UDP.cpp 
 	${MKDIR} -p ${OBJECTDIR}

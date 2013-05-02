@@ -173,7 +173,7 @@ CNetworkDlgUDPTab_wxGUI::~CNetworkDlgUDPTab_wxGUI()
 	
 }
 
-CNetworkDlgTCPClientTab_wxGUI::CNetworkDlgTCPClientTab_wxGUI( wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : wxPanel( parent, id, pos, size, style )
+CNetworkDlgTCPClientTab_wxGUI::CNetworkDlgTCPClientTab_wxGUI( wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : CNetworkPanel_Base( parent, id, pos, size, style )
 {
 	wxBoxSizer* bSizer2;
 	bSizer2 = new wxBoxSizer( wxVERTICAL );

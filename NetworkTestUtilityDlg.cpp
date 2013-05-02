@@ -10,7 +10,7 @@
 #include "NetworkTabDialog.h"
 #include "NetworkPane_Multicast.h"
 #include "NetworkPane_UDP.h"
-#include "NetworkDlgTCPClientTab.h"
+#include "NetworkPane_TCPClient.h"
 
 #include <memory>
 
@@ -23,13 +23,16 @@ m_lCurrentTab( 0 )
         
         this->m_mapNetworkTabs[ CNetworkTestUtilityDlg::TAB_MULTICAST ]	= new CNetworkTabDialog( this->m_tabNetworkCtrl.get() );        
         this->m_mapNetworkTabs[ CNetworkTestUtilityDlg::TAB_UDP ]	= new CNetworkTabDialog( this->m_tabNetworkCtrl.get() );
-        //this->m_mapNetworkTabs[ CNetworkTestUtilityDlg::TAB_TCPCLIENT ]	= new CNetworkDlgTCPClientTab( this->m_tabNetworkCtrl.get() );
+        this->m_mapNetworkTabs[ CNetworkTestUtilityDlg::TAB_TCPCLIENT ]	= new CNetworkTabDialog( this->m_tabNetworkCtrl.get() );
         
         boost::shared_ptr<CNetworkPane_Multicast> pMCPanel( new CNetworkPane_Multicast( this->m_mapNetworkTabs[ CNetworkTestUtilityDlg::TAB_MULTICAST ] ) );
         this->m_mapNetworkTabs[ CNetworkTestUtilityDlg::TAB_MULTICAST ]->SetNetworkPanel( pMCPanel );
         
         boost::shared_ptr<CNetworkPane_UDP> pUDPPanel( new CNetworkPane_UDP( this->m_mapNetworkTabs[ CNetworkTestUtilityDlg::TAB_UDP ] ) );
         this->m_mapNetworkTabs[ CNetworkTestUtilityDlg::TAB_UDP ]->SetNetworkPanel( pUDPPanel );
+        
+        boost::shared_ptr<CNetworkPane_TCPClient> pTCPClientPanel( new CNetworkPane_TCPClient( this->m_mapNetworkTabs[ CNetworkTestUtilityDlg::TAB_TCPCLIENT ] ) );
+        this->m_mapNetworkTabs[ CNetworkTestUtilityDlg::TAB_TCPCLIENT ]->SetNetworkPanel( pTCPClientPanel );
         
      
         // The enum type: NetworkTabType will define the order in which the tabs are created
